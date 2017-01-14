@@ -34,7 +34,7 @@ This documentation is based on [MkDocs](http://www.mkdocs.org/), a markdown base
 
       Note that this will need to be installed at the same level directory as the main documentation folder (this folder is pointed at from mkdocs.yml via the theme_dir option if you want it in a different place):
 
-          git clone https://github.com/footworkjs/footwork-mkdocs-material.git
+          git clone https://github.com/footworkjs/footwork-mkdocs-material.git -b footwork
           cd footwork-mkdocs-material
           pip install pymdown-extensions
           npm install
