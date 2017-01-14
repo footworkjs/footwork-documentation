@@ -1,7 +1,4 @@
 ![footwork.js](https://raw.github.com/footworkjs/footwork/master/dist/gh-footwork-logo.png)
-========
-
-*```A solid footing for web applications.```*
 
 This repository contains the documentation for the frontend javascript framework [Footwork](https://github.com/footworkjs/footwork).
 
@@ -75,6 +72,18 @@ This documentation is based on [MkDocs](http://www.mkdocs.org/), a markdown base
 
         # Local access via: http://localhost:9000
         gulp watch --port 9000
+
+### Archive and Deployment Release Notes
+
+A quick copy/paste for building a release and (tar.gz) archive it:
+
+    # Run from root of this repo
+    VERSION=2.0.0 && gulp && tar czf footwork-docs-${VERSION}.tar.gz --transform "s,^,footwork-docs-${VERSION}/,"  -C ./site ./
+
+And then to extract, link, and make zip in production environment:
+
+    # Upload the above archive to footwork-documentation-site/public/release and run this command from it:
+    VERSION=2.0.0 && tar -zxf footwork-docs-${VERSION}.tar.gz && rm -f ${VERSION} && ln -s footwork-docs-${VERSION} ${VERSION} && zip -r footwork-docs-${VERSION}.zip footwork-docs-${VERSION}
 
 ### License
 
