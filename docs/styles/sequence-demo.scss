@@ -1,0 +1,14 @@
+sequence-demo {
+  display: block;
+  @include clearblock;
+
+  .list {
+    @include clearblock;
+    min-height: 315px;
+    margin-top: 10px;
+
+    person + person {
+      margin-top: 5px;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "item": "Eggs",
+    "amount": 12
+  },
+  {
+    "item": "Bread",
+    "amount": 1
+  },
+  {
+    "item": "Milk",
+    "amount": 1
+  },
+  {
+    "item": "Cereal",
+    "amount": 2
+  },
+  {
+    "item": "Oatmeal",
+    "amount": 4
+  }
+]

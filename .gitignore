@@ -1,0 +1,7 @@
+/node_modules
+/site
+/docs/style.css
+/docs/styles/style.css
+/docs/bower_components
+/.vscode
+/debug.log

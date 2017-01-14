@@ -1,0 +1,24 @@
+@mixin clearblock() {
+  display: block;
+
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+}
+
+@function text-color($color) {
+  @if (lightness($color) > 70) {
+    @return #000000; // Lighter backgorund, return dark color
+  } @else {
+    @return #ffffff; // Darker background, return light color
+  }
+}
+
+@import 'animation-demo.scss';
+@import 'sequence-demo.scss';
+@import 'person.scss';

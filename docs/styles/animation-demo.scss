@@ -1,0 +1,35 @@
+animation-demo {
+  display: block;
+  @include clearblock;
+
+  button {
+    margin-left: 10px;
+  }
+
+  select {
+    float: left;
+    padding: 5px;
+  }
+
+  .animation-demo > * {
+    $color: #565656;
+
+    float: left;
+    background: $color;
+    color: white;
+    clear: both;
+    padding: 10px;
+    border-radius: 3px;
+    margin-top: 10px;
+    box-shadow: 0 2px 20px -5px black;
+    z-index: 1;
+    border: 1px solid darken($color, 10%);
+
+    span {
+      font-weight: bold;
+      background: rgba(255,255,255,0.3);
+      padding: 5px;
+      margin-left: 10px;
+    }
+  }
+}

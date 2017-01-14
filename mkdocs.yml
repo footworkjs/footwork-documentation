@@ -1,0 +1,145 @@
+site_name: Footwork
+repo_url: https://github.com/footworkjs/footwork
+repo_name: Footwork on GitHub
+site_description: A solid footing for web applications.
+site_author: Jonathan Newman
+site_url: 'http://footworkjs.com'
+copyright: 'Copyright &copy 2016 Jonathan Newman'
+site_favicon: img/favicon.png
+theme: material
+theme_dir: ../footwork-mkdocs-material/material
+# cosmo, cyborg, bootstrap, yeti, journal, material, readable, readthedocs, united, simplex, flatly, spacelab, cinder, cerulean, slate, amelia, mkdocs
+extra_css:
+  - bower_components/footwork/dist/footwork.css
+  - styles/style.css
+extra_javascript:
+  - bower_components/jquery/dist/jquery.js
+  - bower_components/footwork/dist/footwork.js
+  - scripts/demo/animation-demo.js
+  - scripts/demo/sequence-demo.js
+  - scripts/fw-start.js
+extra:
+  logo: 'images/logo.svg'
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    mono: Roboto Mono
+  social:
+    - type: github
+      link: https://github.com/footworkjs
+  version: 2.0.0
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite(guess_lang=false)
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc(permalink=true)
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde
+pages:
+  - 'About Footwork': 'index.md'
+  - 'Getting Started': 'getting-started.md'
+  - 'Architecture': 'architecture.md'
+  - 'Observables':
+    - 'Observables': 'observables.md'
+    - 'Observable Arrays': 'observableArrays.md'
+    - 'Computed Observables':
+      - 'Overview': 'computedObservables.md'
+      - 'Creating Computed Observables': 'creating-computed-observables.md'
+      - 'Writable Computed Observables': 'computed-writable.md'
+      - 'Dependency Tracking': 'computed-dependency-tracking.md'
+      - 'Pure Computed Observables': 'computed-pure.md'
+      - 'Reference': 'computed-reference.md'
+    - 'Collections':
+      - 'Creation and Configuration': 'collection-creation.md'
+      - 'Using Collections': 'collection-usage.md'
+    - 'Broadcastable / Receivable': 'broadcastable-receivable.md'
+  - 'Bindings':
+    - 'Binding Syntax': 'binding-syntax.md'
+    - 'Binding Context': 'binding-context.md'
+    - 'Text and Appearance':
+      - 'The visible binding': 'visible-binding.md'
+      - 'The text binding': 'text-binding.md'
+      - 'The html binding': 'html-binding.md'
+      - 'The css binding': 'css-binding.md'
+      - 'The style binding': 'style-binding.md'
+      - 'The attr binding': 'attr-binding.md'
+    - 'Control Flow':
+      - 'The foreach binding': 'foreach-binding.md'
+      - 'The if binding': 'if-binding.md'
+      - 'The ifnot binding': 'ifnot-binding.md'
+      - 'The with binding': 'with-binding.md'
+    - 'Form Fields':
+      - 'The click binding': 'click-binding.md'
+      - 'The event binding': 'event-binding.md'
+      - 'The submit binding': 'submit-binding.md'
+      - 'The enable binding': 'enable-binding.md'
+      - 'The disable binding': 'disable-binding.md'
+      - 'The value binding': 'value-binding.md'
+      - 'The textInput binding': 'textinput-binding.md'
+      - 'The hasFocus binding': 'hasfocus-binding.md'
+      - 'The checked binding': 'checked-binding.md'
+      - 'The options binding': 'options-binding.md'
+      - 'The selectedOptions binding': 'selectedOptions-binding.md'
+      - 'The uniqueName binding': 'uniqueName-binding.md'
+    - 'Custom Bindings':
+      - 'Creating Custom Bindings': 'custom-bindings.md'
+      - 'Controlling Descendant Bindings': 'custom-bindings-controlling-descendant-bindings.md'
+      - 'Supporting Virtual Elements': 'custom-bindings-for-virtual-elements.md'
+      - 'Disposal Logic': 'custom-bindings-disposal.md'
+      - 'Preprocessing: Extending The Binding Syntax': 'binding-preprocessing.md'
+  - 'ViewModel':
+    - 'Creation and Configuration': 'viewModel-creation.md'
+    - 'Registration': 'viewModel-registration.md'
+    - 'Instantiation and Binding': 'viewModel-usage.md'
+    - 'Animation': 'viewModel-animation.md'
+    - 'Lifecycle': 'viewModel-lifecycle.md'
+  - 'DataModel':
+    - 'Creation and Configuration': 'dataModel-creation.md'
+    - 'Registration': 'dataModel-registration.md'
+    - 'Instantiation and Binding': 'dataModel-usage.md'
+    - 'Mapping Request Data': 'dataModel-mapping.md'
+    - 'Issuing Requests': 'dataModel-requests.md'
+    - 'DataModel State': 'dataModel-state.md'
+    - 'Animation': 'dataModel-animation.md'
+    - 'Lifecycle': 'dataModel-lifecycle.md'
+  - 'Router':
+    - 'Creation and Configuration': 'router-creation.md'
+    - 'Routes Configuration': 'router-route-config.md'
+    - 'Registration': 'router-registration.md'
+    - 'Instantiation and Binding': 'router-usage.md'
+    - 'Route Binding': 'route-binding.md'
+    - 'Explicit Routing': 'router-routing.md'
+    - 'Outlets': 'router-outlets.md'
+    - 'Router State': 'router-state.md'
+    - 'Animation': 'router-animation.md'
+    - 'Lifecycle': 'router-lifecycle.md'
+  - 'Components':
+    - 'Component Basics': 'component-basics.md'
+    - 'Component Registration': 'component-registration.md'
+    - 'Using Custom Elements': 'component-custom-elements.md'
+    - 'The component Binding': 'component-binding.md'
+    - 'Component Animation': 'component-animation.md'
+    - 'Component Lifecycle': 'component-lifecycle.md'
+    - 'Custom Loaders': 'component-loaders.md'
+  - 'Namespacing': 'namespacing.md'
+  - 'Further techniques':
+    - 'Loading and saving JSON data': 'json-data.md'
+    - 'Extending observables': 'extenders.md'
+    - 'Deferred updates': 'deferred-updates.md'
+    - 'Rate-limiting observables': 'rateLimit-observable.md'
+    - 'Unobtrusive event handling': 'unobtrusive-event-handling.md'
+    - 'Using fn to add custom functions': 'fn.md'
+    - 'Microtasks': 'microtasks.md'
+    - 'Asynchronous error handling': 'asynchronous-error-handling.md'
+    - 'Rendering Templates': 'template-binding.md'

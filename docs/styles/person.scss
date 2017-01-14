@@ -1,0 +1,19 @@
+person {
+  $personColor: #565656;
+  display: block;
+  @include clearblock;
+
+  & > * {
+    display: block;
+    float: left;
+    width: 100px;
+    text-align: center;
+    clear: both;
+    border: 1px solid darken($personColor, 10%);
+    color: text-color($personColor);
+    background: $personColor;
+    padding: 0 5px;
+    border-radius: 3px;
+    z-index: 1;
+  }
+}

@@ -1,2 +1,77 @@
-# footwork-documentation
-Footwork javascript framework documentation
+![footwork.js](https://raw.github.com/footworkjs/footwork/master/dist/gh-footwork-logo.png)
+========
+
+*```A solid footing for web applications.```*
+
+This repository contains the documentation for the frontend javascript framework [Footwork](https://github.com/footworkjs/footwork).
+
+For more details, [see the main website](http://footworkjs.com/ "http://footworkjs.com").
+
+[![Join the chat at https://gitter.im/footworkjs/footwork](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/footworkjs/footwork?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+### Using this documentation
+
+This documentation is based on [MkDocs](http://www.mkdocs.org/), a markdown based documentation generator.
+
+1. **Clone the repo from GitHub:**
+
+        git clone https://github.com/footworkjs/footwork-documentation.git
+        cd footwork-docs
+
+1. **Install Python PIP and mkdocs:**
+
+  You will need to use python pip ([pip installation](https://pip.pypa.io/en/stable/installing/)) to install MkDocs ([http://www.mkdocs.org/#installation](http://www.mkdocs.org/#installation)) and its related material theme.
+
+  * Install python pip (Ubuntu shown, see [pip installation](https://pip.pypa.io/en/stable/installing/) for more/other info):
+
+          sudo apt-get install python-pip
+
+  * Install mkdocs:
+
+          pip install mkdocs
+
+  * Install mkdocs-material (theme):
+
+          pip install mkdocs-material
+
+1. **Install Node.js (if needed):**
+
+  This is platform specific. Your OS may already include it, however if not please see: [Installing Node](https://docs.npmjs.com/getting-started/installing-node).
+
+1. **Install gulp and bower globally (if needed):**
+
+  * gulp
+  
+          sudo npm install -g gulp-cli
+
+  * bower
+  
+          sudo npm install -g bower
+
+1. **Install local npm and bower based dependencies:**
+
+        npm install && bower install
+
+1. **Build or run the site:**
+
+  Note that you will need to run the default ```gulp``` task to build the initial CSS assets, then you can use the *watch* task afterwards. 
+
+  * Build the site and its assets, generated output in ```/site```
+
+          gulp
+
+  * Run watch process which rebuilds css/html and auto-refreshes your browser when pointed at: http://localhost:8000
+
+          # Local access via: http://localhost:8000
+          gulp watch
+
+    ...you can also run it on a different port like this:
+
+        # Local access via: http://localhost:9000
+        gulp watch --port 9000
+
+### License
+
+MIT license - [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
+
+[![Analytics](https://ga-beacon.appspot.com/UA-52543452-1/footwork/GITHUB-ROOT)](https://github.com/reflectiveSingleton/ga-beacon)
