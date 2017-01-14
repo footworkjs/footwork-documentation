@@ -5,7 +5,7 @@ site_description: A solid footing for web applications.
 site_author: Jonathan Newman
 site_url: 'http://footworkjs.com'
 copyright: 'Copyright &copy 2016 Jonathan Newman'
-site_favicon: img/favicon.png
+site_favicon: images/favicon.png
 theme: material
 theme_dir: ../footwork-mkdocs-material/material
 # cosmo, cyborg, bootstrap, yeti, journal, material, readable, readthedocs, united, simplex, flatly, spacelab, cinder, cerulean, slate, amelia, mkdocs
