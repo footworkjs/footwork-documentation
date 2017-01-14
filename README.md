@@ -16,7 +16,7 @@ This documentation is based on [MkDocs](http://www.mkdocs.org/), a markdown base
 1. **Clone the repo from GitHub:**
 
         git clone https://github.com/footworkjs/footwork-documentation.git
-        cd footwork-docs
+        cd footwork-documentation
 
 1. **Install Python PIP and mkdocs:**
 
@@ -30,9 +30,15 @@ This documentation is based on [MkDocs](http://www.mkdocs.org/), a markdown base
 
           pip install mkdocs
 
-  * Install mkdocs-material (theme):
+  * Install and build the footwork-mkdocs-material theme:
 
-          pip install mkdocs-material
+      Note that this will need to be installed at the same level directory as the main documentation folder (this folder is pointed at from mkdocs.yml via the theme_dir option if you want it in a different place):
+
+          git clone https://github.com/footworkjs/footwork-mkdocs-material.git
+          cd footwork-mkdocs-material
+          pip install pymdown-extensions
+          npm install
+          gulp
 
 1. **Install Node.js (if needed):**
 
