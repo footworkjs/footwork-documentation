@@ -34,11 +34,11 @@ Using `fw.components.registerLocation()` also has additional capabilities such a
 
 #### View Model
 
-View models registered using the following `registerLocation` function should define a module that returns a class method which can be used to create new instances:
+Component viewModels registered using `registerLocation` should define a module that returns a class method which can be used to create new instances:
 
 ```javascript
 define(['footwork'], function (fw) {
-  return YourViewModel () {
+  return YourViewModel (params) {
     var self = fw.viewModel.boot(this, { /* ... */ });
   }
 });

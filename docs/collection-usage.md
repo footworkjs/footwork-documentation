@@ -148,9 +148,11 @@ Often times when rendering a list of items in a collection it would be nice to a
 
 Doing this is relatively straight-forward. Lets use the previous grocery list and animate it.
 
-### Using A View Model
+### View Model
 
-First lets update the main view to render a `grocery-item` for each item in the collection:
+One option is we can use declarative [viewModel animations](viewModel-animation.md) in conjunction with the collection.
+
+The following is an example of how to do that with the grocery collection from above. First lets update the main view to render a `grocery-item` for each item in the collection:
 
 ```html
 <div data-bind="text: groceryStatus"></div>
@@ -183,9 +185,9 @@ fw.viewModel.register('grocery-item', function (params) {
 !!! Note
     You can animate any of the native view model types ([viewModel](viewModel-animation.md)/[dataModel](dataModel-animation.md)/[router](router-animation.md#animating-routers)) within a collection.
 
-### Using A component
+### Component
 
-Animating a collections contents with declarative components works in the same way as it does with a view model.
+Similarly, we can use [component animation](component-animation.md) capabilities in the same way as we do with a declarative viewModel.
 
 First lets update the main view to render a `grocery-item` *component* for each item in the collection:
 

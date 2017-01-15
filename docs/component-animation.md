@@ -1,4 +1,4 @@
-Components have exactly the same animation capabilities as do [viewModels](viewModel-animation.md), [dataModels](dataModel-animation.md), and [routers](router-animation.md). You animate their contents by placing animation classes on their direct-descendent children.
+Components have exactly the same animation capabilities as do [viewModels](viewModel-animation.md), [dataModels](dataModel-animation.md), and [routers](router-animation.md#animating-routers). You animate their contents by placing animation classes on their direct-descendent children.
 
 To use the native animation capabilities built into Footwork you need to first ensure that you are including the animation CSS. For example, if you installed Footwork using [bower](http://bower.io) then you might include it like so:
 
@@ -8,11 +8,18 @@ To use the native animation capabilities built into Footwork you need to first e
 </head>
 ```
 
-After that, you need to add the animation class to any (direct-child) element you wish to transition into place:
+After that, you need to add the animation class to any (direct-child) element you wish to transition into place within the components template:
+
+```javascript
+fw.components.register('animated-component', {
+  template: '<div class="fadeIn">This will fade in.</div>'
+});
+```
+
+Then you can declaratively insert it into your view and when it is rendered it will be animated into place:
 
 ```html
-<div class="fadeIn">This will fade in.</div>
-<div class="flipInX">This will flip in.</div>
+<animated-component></animated-component>
 ```
 
 Thats it. Anytime an instance of the component is rendered to the screen and its contents have resolved it will have the animations activated (if any are specified).
