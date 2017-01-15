@@ -186,7 +186,7 @@ var weNeedOne = groceries.where({
       });
 
       self.weNeedOne = fw.computed(function () {
-        return self.groceries().where({ amount: 1 });
+        return self.groceries.where({ amount: 1 });
       });
 
       // ...
