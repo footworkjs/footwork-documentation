@@ -30,7 +30,34 @@ Using `fw.components.registerLocation()` also has additional capabilities such a
 !!! Tip
     If you need something on screen as fast as possible then you will want to [register it directly](#register-a-configuration). Registering a location is for assets which are beneficially lazy-loaded.
 
-### File Name Automatically Appended
+### Module Pattern
+
+#### View Model
+
+View models registered using the following `registerLocation` function should define a module that returns a class method which can be used to create new instances:
+
+```javascript
+define(['footwork'], function (fw) {
+  return YourViewModel () {
+    var self = fw.viewModel.boot(this, { /* ... */ });
+  }
+});
+```
+
+!!! Note
+    [Any class factory](component-basics.md#component-anatomy) can be used with a component, you do not need to bootstrap it and you are not limited to a `viewModel` type.
+
+#### Template
+
+The template portion can simply be the raw HTML/view which is paired with the view model:
+
+```html
+<span class="fadeIn">This is my cool view model!</span>
+```
+
+### Examples
+
+#### File Name Automatically Appended
 
 Register component under 'sprocket' using individual paths for the viewModel and template files. The file name will be appended using the name of the component + .ext:
 
@@ -41,7 +68,7 @@ fw.components.registerLocation('sprocket', {
 });
 ```
 
-### Explicit File Name
+#### Explicit File Name
 
 You can specify the full file name (ie: such as when the component file names do not (or cannot) match what you want to use in the markup):
 
@@ -52,7 +79,7 @@ fw.components.registerLocation('sprocket', {
 });
 ```
 
-### Automatic Name Concatenation
+#### Automatic Name Concatenation
 
 Load component assets from inner folder using a single string:
 
@@ -61,7 +88,7 @@ Load component assets from inner folder using a single string:
 fw.components.registerLocation('sprocket', 'components/sprocket/');
 ```
 
-### Specify Multiple Components
+#### Specify Multiple Components
 
 You can also specify the path to many components at once (Footwork will append the appropriate file name/etc):
 
@@ -72,7 +99,7 @@ fw.components.registerLocation(['sprocket', 'wheel'], {
 });
 ```
 
-### Automatic Sub-Folder Concatenation
+#### Automatic Sub-Folder Concatenation
 
 You can tell Footwork to prepend with a folder name when loading the component:
 
@@ -105,7 +132,7 @@ fw.components.registerLocation(['sprocket', 'wheel'], {
 fw.components.registerLocation(['sprocket', 'wheel'], 'components/', true);
 ```
 
-### Regular Expressions
+#### Regular Expressions
 
 It is also possible to use a regular expression to match against the component name:
 
@@ -450,51 +477,6 @@ define(['footwork'], function(fw) {
     template: 'The name is <strong data-bind="text: personName"></strong>'
   };
 });
-```
-
-### A Recommended AMD Module Pattern For Single Modules
-
-What tends to be most useful in practice is creating AMD modules that have inline viewmodel classes, and explicitly take AMD dependencies on external template files.
-
-For example, if the following is in a file at `path/my-component.js`,
-
-```javascript
-// Recommended AMD module pattern for a Footwork component that:
-//  - Can be referenced with just a single 'require' declaration
-//  - Can be included in a bundle using the r.js optimizer
-define(['footwork', 'text!./my-component.html'], function(fw, htmlString) {
-  function MyComponentViewModel(params) {
-    // Set up properties, etc.
-  }
-
-  // Use prototype to declare any public methods
-  MyComponentViewModel.prototype.doSomething = function() { ... };
-
-  // Return component definition
-  return { viewModel: MyComponentViewModel, template: htmlString };
-});
-```
-
-... and the template markup is in the file `path/my-component.html`, then you have these benefits:
-
- * Applications can reference this trivially, i.e., `fw.components.register('my-component', { require: 'path/my-component' });`
- * You only need two files for the component - a viewmodel (`path/my-component.js`) and a template (`path/my-component.html`) - which is a very natural arrangement during development.
- * Since the dependency on the template is explicitly stated in the `define` call, this automatically works with the [`r.js` optimizer](http://requirejs.org/docs/optimization.html) or similar bundling tools. The entire component - viewmodel plus template - can therefore trivially be included in a bundle file during a build step.
-
-#### Specifying Additional Component Options
-
-As well as (or instead of) `template` and `viewModel`, your component configuration object can have arbitrary other properties. This configuration object is made available to any [custom component loader](component-loaders.md) you may be using.
-
-#### Checking For A Registered Component
-
-Sometimes you may want to check if a particular location is registered, to do that you would use `fw.components.isRegistered`:
-
-```javascript
-fw.components.register('my-component', /* ... */);
-
-fw.components.isRegistered('my-component') === true
-
-fw.components.isRegistered('some-unknown-component') === false
 ```
 
 ## How AMD Loading Works

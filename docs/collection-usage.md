@@ -141,3 +141,84 @@ Now once the request is issued our loading message will display for a minimum of
 
 !!! Tip
     For more information, see [request lull configuration](collection-creation.md#requestlull-integer-callback).
+
+## Animations
+
+Often times when rendering a list of items in a collection it would be nice to animate them into place. Using a declarative view model or component this is possible.
+
+Doing this is relatively straight-forward. Lets use the previous grocery list and animate it.
+
+### Using A View Model
+
+First lets update the main view to render a `grocery-item` for each item in the collection:
+
+```html
+<div data-bind="text: groceryStatus"></div>
+<div data-bind="foreach: groceries">
+  <!-- display a grocery-item and pass in the context $data for each item -->
+  <viewModel module="grocery-item" params="item: $data">
+    <!-- note the fadeIn animation class -->
+    <div class="grocery-item fadeIn">
+      <span data-bind="text: item"></span>
+      <span data-bind="text: amount"></span>
+    </div>
+  </viewModel>
+</div>
+```
+
+First lets register a viewModel we can use to render each grocery item with:
+
+```javascript
+fw.viewModel.register('grocery-item', function (params) {
+  var self = fw.viewModel.boot(this, {
+    namespace: 'grocery-item',
+    sequence: 100
+  });
+
+  self.item = params.item.item;
+  self.amount = params.item.amount;
+});
+```
+
+!!! Note
+    You can animate any of the native view model types ([viewModel](viewModel-animation.md)/[dataModel](dataModel-animation.md)/[router](router-animation.md#animating-routers)) within a collection.
+
+### Using A component
+
+Animating a collections contents with declarative components works in the same way as it does with a view model.
+
+First lets update the main view to render a `grocery-item` *component* for each item in the collection:
+
+```html
+<div data-bind="text: groceryStatus"></div>
+<div data-bind="foreach: groceries">
+  <!-- display a grocery-item and pass in the context $data for each item -->
+  <grocery-item params="item: $data"></grocery-item>
+</div>
+```
+
+Now lets register the `grocery-item` component so Footwork can render it when needed:
+
+```javascript
+fw.components.register('grocery-item', {
+  viewModel: function (params) {
+    var self = fw.viewModel.boot(this, {
+      namespace: 'grocery-item',
+      sequence: 100
+    });
+
+    self.item = params.item.item;
+    self.amount = params.item.amount;
+  },
+  template: '\
+    <div class="grocery-item fadeIn">\
+      <span data-bind="text: item"></span>\
+      <span data-bind="text: amount"></span>\
+    </div>'
+});
+```
+
+!!! Tip
+    Normally you would include the template of a component using RequireJS or some other script loader rather then placing it inline as shown here.
+
+    See also: [Registering a Component Location](component-registration.md#register-a-location).

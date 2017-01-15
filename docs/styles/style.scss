@@ -22,3 +22,7 @@
 @import 'animation-demo.scss';
 @import 'sequence-demo.scss';
 @import 'person.scss';
+
+.codehilite::-webkit-scrollbar {
+  height: 1.5rem !important;
+}
