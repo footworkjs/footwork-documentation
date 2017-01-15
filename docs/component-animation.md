@@ -1,5 +1,7 @@
 Components have exactly the same animation capabilities as do [viewModels](viewModel-animation.md), [dataModels](dataModel-animation.md), and [routers](router-animation.md#animating-routers). You animate their contents by placing animation classes on their direct-descendent children.
 
+## The Basics
+
 To use the native animation capabilities built into Footwork you need to first ensure that you are including the animation CSS. For example, if you installed Footwork using [bower](http://bower.io) then you might include it like so:
 
 ```html
@@ -31,7 +33,7 @@ Thats it. Anytime an instance of the component is rendered to the screen and its
 
     * To disable the animations entirely, set `fw.animationClass.animateIn` to `false`
 
-### Available Animations
+## Available Animations
 
 Animations available in the included `footwork.css`:
 

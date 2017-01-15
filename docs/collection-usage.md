@@ -142,6 +142,67 @@ Now once the request is issued our loading message will display for a minimum of
 !!! Tip
     For more information, see [request lull configuration](collection-creation.md#requestlull-integer-callback).
 
+## Finding Data
+
+One additional capability of collections over observable arrays is the `where` method, used to find data.
+
+Using the groceries list defined above, lets find all the entries which we need one of:
+
+```javascript
+var weNeedOne = groceries.where({ amount: 1 });
+// weNeedOne[0].item === 'Bread'
+```
+
+You can also compare using a regular expression:
+
+```javascript
+var weNeedOne = groceries.where({ item: /ilk$/ });
+// weNeedOne[0].item === 'Milk'
+```
+
+The `where` method also has a second optional parameter where you can provide a custom callback to do your own comparison:
+
+```javascript
+var weNeedOne = groceries.where({
+  amount: 1
+}, function findCallback (value, collectionItem) {
+  // if we return true then the item becomes part of the filtered list
+  return value.amount === collectionItem.amount;
+});
+```
+
+!!! Tip "Creating a Filter"
+    It's important to note that we can also create computed values based off of the `where` method, essentially creating a filter.
+    
+    Here is the *GroceryList* viewModel from above with a computed created which filters out our single-item list:
+
+    ```javascript
+    function GroceryList () {
+      // ...
+
+      self.groceries = fw.collection({
+        url: '/grocery-list',
+        requestLull: 300 // 300msec lull
+      });
+
+      self.weNeedOne = fw.computed(function () {
+        return self.groceries().where({ amount: 1 });
+      });
+
+      // ...
+    }
+    ```
+
+    ...and then we could bind and show that value in the UI like so:
+
+    ```html
+    <div data-bind="text: groceryStatus"></div>
+    We need one of: 
+    <!-- ko foreach: weNeedOne -->
+      <span data-bind="text: item"></span>
+    <!-- /ko -->
+    ```
+
 ## Animations
 
 Often times when rendering a list of items in a collection it would be nice to animate them into place. Using a declarative view model or component this is possible.
@@ -221,6 +282,6 @@ fw.components.register('grocery-item', {
 ```
 
 !!! Tip
-    Normally you would include the template of a component using RequireJS or some other script loader rather then placing it inline as shown here.
+    Normally you would include the template of a component using RequireJS or some other script loader rather than placing it inline as shown here.
 
     See also: [Registering a Component Location](component-registration.md#register-a-location).
