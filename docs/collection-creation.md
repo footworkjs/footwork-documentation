@@ -6,7 +6,7 @@ In all other ways including their [reading](observableArrays.md#reading) and [va
 
 To create a `collection` you use the `fw.collection()` factory, passing it an array of items to store or a configuration object:
 
-* [Array of Items](#array-of-items) (default configuration)
+* [Array of Items](#array-of-items)
 
     This is useful if you want to be able to search/find data within the collection and do not need to be able to fetch the list from an endpoint.
 
@@ -33,8 +33,8 @@ To create a `collection` you use the `fw.collection()` factory, passing it an ar
 !!! Tip "Best Used For Objects Or Remote Data"
     The use of a collection (as opposed to an [observable array](observableArrays.md), which is what they are based on) really only makes sense if:
 
-    * You are storing objects within it (and want to be able to easily search through it)
-    * ...or have that data stored on an endpoint (and want to be able to easily retrieve it)
+    * You are storing objects within it (and want to be able to [search through it](collection-usage.md#finding-data))
+    * ...or have that data stored on an endpoint (and want to be able to [retrieve it](collection-usage.md#fetching-data))
 
     If you do not need either of these features/capabilities, then [observable arrays](observableArrays.md) are more likely the (lighter-weight) storage mechanism you should choose.
 

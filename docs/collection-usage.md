@@ -48,6 +48,15 @@ function GroceryList () {
 }
 ```
 
+!!! Note "Request Options"
+    If you need to pass options to the underlying [ES6 fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) call you can do so by passing them into the `collection.fetch` call:
+
+    ```javascript
+    groceries.fetch({
+      credentials: 'same-origin'
+    });
+    ```
+
 Notice the *loadGroceries* function. We will use it to bind against a button the user will click, triggering the request:
 
 ```html
@@ -207,8 +216,6 @@ var weNeedOne = groceries.where({
 
 Often times when rendering a list of items in a collection it would be nice to animate them into place. Using a declarative view model or component this is possible.
 
-Doing this is relatively straight-forward. Lets use the previous grocery list and animate it.
-
 ### View Model
 
 One option is we can use declarative [viewModel animations](viewModel-animation.md) in conjunction with the collection.
@@ -244,7 +251,7 @@ fw.viewModel.register('grocery-item', function (params) {
 ```
 
 !!! Note
-    You can animate any of the native view model types ([viewModel](viewModel-animation.md)/[dataModel](dataModel-animation.md)/[router](router-animation.md#animating-routers)) within a collection.
+    You can animate any of the native view model types ([viewModel](viewModel-animation.md), [dataModel](dataModel-animation.md), or [router](router-animation.md#animating-routers)) within a collection.
 
 ### Component
 
