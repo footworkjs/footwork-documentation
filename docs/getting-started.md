@@ -45,6 +45,42 @@ Below is an example using normal script tags (adjust accordingly for your prefer
 </html>
 ```
 
+## Starting The Application
+
+There are two primary ways to kick-off a Footwork application:
+
+* `fw.start`
+
+    Using this method you can simply tell Footwork to start processing the DOM. Instation of your application then depends on the declarative [viewModels](viewModel-creation.md), [dataModels](dataModel-creation.md), [routers](router-creation.md), [components](component-basics.md), etc that you define in the view.
+
+    ```javascript
+    fw.start();
+    ```
+
+    You can optionally pass it a root-node you want it to begin processing on (by default it assumes `document.body`):
+
+    ```javascript
+    fw.start(document.getElementById('my-app'));
+    ```
+
+    Once `fw.start` has been called all descendant declarations to the root node will be processed. This means any nested viewModels/components/etc will be instantiated and bound per their registrations/configurations/etc.
+
+* `fw.applyBindings`
+
+    This method allows you to instantiate and bind a specific view model when binding to the view.
+
+    ```javascript
+    fw.applyBindings(new MyViewModel());
+    ```
+
+    You can optionally pass it a root-node you want it to begin processing on (by default it assumes `document.body`):
+
+    ```javascript
+    fw.applyBindings(new MyViewModel(), document.getElementById('my-app'));
+    ```
+
+    Once `fw.applyBindings` has been called all descendant declarations to the root node will be processed. This means any nested viewModels/components/etc will be instantiated and bound per their registrations/configurations/etc.
+
 ## Browser Support and Polyfills
 
 Footwork is an ES5-based library and utilizes a couple of the newer ES6 features such as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) and [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). This means that it needs at least IE9 or later, and might require that you load some polyfills (if [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) and [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) are not natively supported by your browser).
