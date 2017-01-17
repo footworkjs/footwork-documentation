@@ -4,8 +4,9 @@ A broadcastable and receivable are `observable` values that allow you to share d
 
 As you might have guessed, it has two parts:
 
-* **broadcastable**: observable that broadcasts, or shares its value to other areas of your application.
-* **receivable**: observable that receives its value from a broadcastable.
+* [receivable](#receivable): observable that receives its value from a broadcastable.
+
+* [broadcastable](#broadcastable): observable that broadcasts, or syncs its value/state with other areas of your application.
 
 ```javascript
 // setup observable that broadcasts its value
