@@ -169,10 +169,10 @@ fetchOptions: function (action, collection, options) {
 ```
 
 !!! Tip "Global Request Options"
-    If you need to provide request options on a global basis then you can specify them on `fw.fetchOptions`:
+    If you need to provide request options on a global basis then you can specify them on `fw.options.fetchOptions`:
 
     ```javascript
-    fw.fetchOptions = {
+    fw.options.fetchOptions = {
       credentials: 'same-origin'
     };
     ```

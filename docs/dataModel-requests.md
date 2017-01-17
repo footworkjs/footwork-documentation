@@ -234,12 +234,12 @@ A `dataModel` has 3 ways in which you can alter the options passed into the unde
 
 * As a [configuration option](dataModel-creation.md#fetchoptions-objectcallback)
 
-* On a global `fw.fetchOptions` configuration
+* On a global `fw.options.fetchOptions` configuration
 
-    You can supply the same fetch options object configuration or callback on `fw.fetchOptions` just as you would on a [configuration option](dataModel-creation.md#fetchoptions-objectcallback):
+    You can supply the same fetch options object configuration or callback on `fw.options.fetchOptions` just as you would on a [configuration option](dataModel-creation.md#fetchoptions-objectcallback):
 
     ```javascript
-    fw.fetchOptions = fetchOptions: {
+    fw.options.fetchOptions = fetchOptions: {
       credentials: 'same-origin'
     };
     ```
@@ -251,7 +251,7 @@ A `dataModel` has 3 ways in which you can alter the options passed into the unde
 
     * Individual request options (shown for each [C](#create-a-new-record)[R](#read-a-record)[U](#update-a-record)[D](#delete-a-record) action above)
     * [dataModel configuration options](dataModel-creation.md#fetchoptions-objectcallback)
-    * Global `fw.fetchOptions` (shown here in this section)
+    * Global `fw.options.fetchOptions` (shown here in this section)
 
 ## Altering the Storage Method
 

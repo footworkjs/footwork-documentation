@@ -22,7 +22,7 @@ To begin, you must first install/download Footwork:
 
 After that, you need to include it in your webapp somehow. Footwork is provided with a [UMD wrapper](https://github.com/umdjs/umd#umd-universal-module-definition), which means that it can be loaded using most script loaders.
 
-Below is an example using normal script tags (adjust accordingly for your preferred script loader):
+Below is an example using normal script tags (adjust accordingly for your preferred script loader, see also: [Dynamic Loading of Assets](#dynamic-loading-of-assets)):
 
 ```html
 <html>
@@ -47,11 +47,11 @@ Below is an example using normal script tags (adjust accordingly for your prefer
 
 ## Starting The Application
 
-There are two primary ways to kick-off a Footwork application:
+Once all of your application code has been loaded and you have performed any configuration and registration of components/viewModels/etc, as well as any other startup logic - you will want to start your application. There are two primary ways to accomplish that:
 
 * `fw.start`
 
-    Using this method you can simply tell Footwork to start processing the DOM. Instation of your application then depends on the declarative [viewModels](viewModel-creation.md), [dataModels](dataModel-creation.md), [routers](router-creation.md), [components](component-basics.md), etc that you define in the view.
+    Using this method you can simply tell Footwork to start processing the DOM. Instantiation of your application then depends on the declarative [viewModels](viewModel-usage.md), [dataModels](dataModel-usage.md), [routers](router-usage.md), [components](component-custom-elements.md), etc that you define in the view.
 
     ```javascript
     fw.start();
