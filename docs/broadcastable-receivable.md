@@ -49,15 +49,15 @@ myName('Jack');
 
 ### Writing To Receivables
 
-Since a receivable is an observable property it can be written to. Depending on the configuration of its corresponding [broadcastable](#broadcastable) this may mean the value propogates back to it. There are two scenarios to be aware of:
+Receivables can be written to just like any other observable property. Depending on the configuration of its corresponding [broadcastable](#broadcastable), there are two scenarios to be aware of: 
 
-* The corresponding broadcastable **is not configured to be writable**
+* The corresponding broadcastable is **not configured to be writable or not instantiated**
 
     If you write to a receivable when its broadcastable is not configured to be writable, or no corresponding broadcastable is instantiated, then the value is not changed. This is because it updates only when the corresponding broadcastable sends it a new value.
     
     If no broadcastable is listening, or it is not configured to be writable, then the value is not written to it (and thus does not propogate back to any receivables).
 
-* The corresponding broadcastable **is configured to be writable**
+* The corresponding broadcastable is **configured to be writable**
 
     If you write to a receivable whos broadcastable is configured to be writable, then the value is written to the broadcastable and propogates out to any corresponding receivables (including the one that was written to).
 
@@ -117,29 +117,28 @@ As a general rule is its best to use the same variable name when broadcasting. T
 
 You can optionally pass a 3rd boolean parameter to `.broadcast` which (if true) makes it a *writable* `broadcastable`. A *writable* `broadcastable` will allow any `receivable` to write back to it.
 
-* Create the *writable* broadcastable that sends/sync with the receivable
+For example, we can create a *writable* broadcastable like so:
 
-    ```javascript
-    var myName = fw.observable('Smith').broadcast('myName', 'Person', true);
-    ```
+```javascript
+var myName = fw.observable('Smith').broadcast('myName', 'Person', true);
+```
 
-* Create receivedName (a receivable) which receives/syncs with the broadcastable
+We can then create a receivable which receives/syncs with the broadcastable:
 
-    ```javascript
-    var receivedName = fw.observable().receive('myName', 'Person');
-    // receivedName() === 'Smith'
-    ```
+```javascript
+var receivedName = fw.observable().receive('myName', 'Person');
+// receivedName() === 'Smith'
+```
 
-    `receivedName` is instantiated and is set to the current value of `myName` (its corresponding broadcastable).
+`receivedName` is instantiated and is set to the current value of `myName` (its corresponding broadcastable).
 
-* We then write to `receivedName` (the receivable), which then updates `myName` (the broadcastable)
+If we then write to `receivedName` (the receivable), the value is written to the broadcastable which then propogates back to the receivable *receivedName*.
 
-    ```javascript
-    receivedName('Jack');
-    // myName() === 'Jack'
-    ```
-
-    The above example shows `myName` which is a `broadcastable` that can be written to, being written to by `receivedName`, a `receivable`.
+```javascript
+receivedName('Jack');
+// myName() === 'Jack'
+// receivedName() === 'Jack'
+```
 
 ## Usage Notes
 
