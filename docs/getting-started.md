@@ -215,7 +215,7 @@ A brief example of this is shown here:
     ```javascript
     require.config({
       paths: {
-        "text": "/bower_components/requirejs-text/text",
+        "text": "/bower_components/text/text",
         "footwork": "/bower_components/footwork/dist/footwork",
         "es6-promise": "/bower_components/es6-promise/es6-promise",
         "fetch": "/bower_components/fetch/fetch"
