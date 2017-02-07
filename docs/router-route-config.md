@@ -8,11 +8,11 @@ function MyRouter () {
     namespace: 'Router',
     routes: [
       {
-        route: '/',
+        path: '/',
         controller: function () { /* ... */ }
       },
       {
-        route: '/dashboard',
+        path: '/dashboard',
         controller: function () { /* ... */ }
       }
     ]
@@ -30,11 +30,11 @@ function MyRouter () {
 
   self.routes([
     {
-      route: '/',
+      path: '/',
       controller: function () { /* ... */ }
     },
     {
-      route: '/dashboard',
+      path: '/dashboard',
       controller: function () { /* ... */ }
     }
   ]);
@@ -47,7 +47,7 @@ Since the routes property is an [observable array](observableArrays.md) you can 
 
     ```javascript
     self.routes.push({
-      route: '/news',
+      path: '/news',
       controller: function () { /* ... */ }
     });
     ```
@@ -56,7 +56,7 @@ Since the routes property is an [observable array](observableArrays.md) you can 
 
     ```javascript
     var newsRoute = {
-      route: '/news',
+      path: '/news',
       controller: function () { /* ... */ }
     };
 
@@ -81,7 +81,7 @@ When specifying an individual route, you can pass along several options:
 
 ```javascript
 {
-  route: /* see below */,
+  path: /* see below */,
   name: /* see below */,
   title: /* see below */,
   controller: /* see below */,
@@ -89,7 +89,7 @@ When specifying an individual route, you can pass along several options:
 }
 ```
 
-* [route](#route-string-array) (string | array)
+* [path](#path-string-array) (string | array)
 * [name](#name-string) (string)
 * [title](#title-string-callback) (string | callback)
 * [controller](#controller-callback) (callback)
@@ -98,50 +98,47 @@ When specifying an individual route, you can pass along several options:
 !!! Note "Callback Context"
     All callback functions execute with the context of the `router` instance.
 
-### route (string | array)
+### path (string | array)
 
 It is the string which is used to match against the url. Routes are matched according to the pattern you provide in the route string.
-
-!!! Note
-    You must provide a route string value. [Named routes](#name-string) are optional.
 
 There are a few available patterns you can define in your route string:
 
 #### Static Routes
 
-This is an explicitly defined route:
+This is an explicitly defined path:
 
 ```javascript
-route: '/path/for/route'
+path: '/path/for/route'
 ```
 
 This is a simple explicitly defined route that will match when the browser navigates to `/path/for/route`.
 
 #### Required Parameter
 
-This is a route with a required parameter:
+This is a path with a required parameter:
 
 ```javascript
-route: '/user/:id'
+path: '/user/:id'
 ```
 
 This route will match anything that starts with `/user/` followed by something after, such as '/user/123'.
 
 #### Optional Parameter
 
-This is a route with an optional parameter:
+This is a path with an optional parameter:
 
 ```javascript
-route: '/books(/:isbn)'
+path: '/books(/:isbn)'
 ```
 
 This route will match anything that starts with `/books` and *optionally* followed by something after, such as '/books' and '/books/123'.
 
-!!! Note "Route Array"
-    Note that you can provide a list of routes for a controller by supplying them in an array:
+!!! Note "Path Array"
+    Note that you can provide a list of paths for a route by supplying them with an array:
 
     ```javascript
-    route: ['/path/for/route', '/other/path/for/route']
+    path: ['/path/for/route', '/other/path/for/route']
     ```
 
     All supplied route strings will be matched against when determining if a route matches a url.
@@ -151,17 +148,16 @@ This route will match anything that starts with `/books` and *optionally* follow
 A *splat* is a pattern which will match anything:
 
 ```javascript
-route: '/settings*details'
+path: '/settings*details'
 ```
 
 This route will match anything that starts with `/settings` and ends with `details`, such as '/settings/history/details' and '/settings/profile/details'.
 
 ### name (string)
 
-Routes can also have a name attached to them. This name can be used as an alternative to url based routing.
+Routes can also be addressed via a name. To define one for a route you do so with the `name:` parameter:
 
 ```javascript
-url: '/user/:id',
 name: 'user-profile'
 ```
 
@@ -192,19 +188,21 @@ title: function () {
 
 ### controller (callback)
 
-The callback evaluator which is run each time the route is triggered. It is passed an object containing any parameters defined by the route.
+The callback evaluator which is run each time the route is triggered. This is the callback which is typically used to manipulate any [outlets](router-outlets.md) as a result of the route being triggerd (such as a page change manipulating the main content area).
+
+It is passed an object containing any parameters expressed by the current route.
 
 ```javascript
-route: '/user/:id',
+path: '/user/:id',
 controller: function (params) {
   console.info('user id', params.id);
 }
 ```
 
-The controller is where you will generally do any outlet changes:
+The controller is where you will generally do any outlet changes. Since the context of the controller callback is the router instance itself, you can access it via `this.outlet`:
 
 ```javascript
-route: '/news',
+path: '/news',
 controller: function (params) {
   this.outlet('main', 'news');
 }
@@ -214,16 +212,16 @@ For more information on outlets, see the [outlet documentation](router-outlets.m
 
 ### predicate (callback)
 
-If provided this callback will evaluated prior to a route change, its result (true/false) will determine whether or not the routing is allowed to take place.
+If provided this callback will evaluated prior to a route change, its result (true/false) will determine whether or not the route controller is triggered. When being called it is provided the current state being changed to:
 
 ```javascript
 predicate: function (url) {
   if (url.match(/^\/profile/) && !loggedIn) {
-    return false;
+    return false; // do not trigger controller
   }
-  return true;
+  return true; // trigger controller, route to page
 }
 ```
 
 !!! Note "Router Predicate"
-    Remember that the [router configuration](router-creation.md#predicate-callback) also has an option for a `predicate` callback. If provided, either/both callbacks will be evaluated and both must return true for the route to change.
+    Remember that the [router configuration](router-creation.md#predicate-callback) also has an option for a `predicate` callback. If provided, either/both callbacks will be evaluated and *both* must return true for the route to be triggered.

@@ -26,7 +26,7 @@ router.activated.subscribe(function (activated) {
 
 ## Current State
 
-The `currentState` of your router is essentially the URL it is presently addressed to. You can track/manage the router state at this property on the instance:
+The `currentState` of your router is the state it is presently addressed to - this matches up with and is manipulated by the HTML History API state. You can track/manage the router state at this property on the instance:
 
 ```javascript
 router.currentState.subscribe(function (currentState) {
@@ -49,15 +49,13 @@ router.currentState.subscribe(function (currentState) {
 
     * Browser history will not be affected.
 
-    It is generally recommended to use the [pushState and replaceState methods](router-routing.md#state-change-methods) on a router to trigger state/route changes as opposed to direct manipulation as outlined here.
+    For more information on implementing custom routing logic, see [Custom Routing](router-custom.md).
 
 ## Current Route
 
-The route triggered by your router is determined by taking the [`currentState`](#current-state) value and evaluating that against the `routes` you have defined on the router. This evaluation happens any time the `currentState` changes. That can occur as a result of:
+The route expressed by your router is done by subscribing to the [`currentState`](#current-state) value and evaluating that against the `routes` you have defined on the router. This evaluation happens any time the `currentState` changes. That can occur as a result of:
 
-1. The router being activated
-
-1. A state change is issued on the router
+1. A change is made on the routers `currentState` (manually or via [router.pushState/router.replaceState](router-routing.md#state-change-methods))
 
 1. A browser history state is popped (ie: user hit back or forward)
 
@@ -69,7 +67,23 @@ router.currentRoute.subscribe(function (currentRoute) {
 });
 ```
 
-!!! Note "This value is computed"
-    You cannot *directly manipulate* the `currentRoute`. It is a (read-only) [computed observable](computedObservables.md) based on the `currentState` and your `routes` list.
+!!! Tip
+    Note that it **is possible** to change the route by directly manipilating the `currentRoute` observable on the router instance.
 
-    To manipulate/change the `currentRoute` you must manipulate/change the `currentState` of the router.
+    ```javascript
+    router.currentRoute({
+      route: {
+        controller: function () { /* ... */ }
+      }
+    });
+    ```
+
+    Doing this has similar side effects to directly manipulating the `currentState`, in that:
+
+    * You bypass any route predicate callbacks.
+
+        The route triggered by the state you set will **always trigger** even if the [route predicate](router-route-config.md#predicate-callback) would fail (because it never gets called).
+
+    * Browser history will not be affected.
+
+    For more information on implementing custom routing logic, see [Custom Routing](router-custom.md).

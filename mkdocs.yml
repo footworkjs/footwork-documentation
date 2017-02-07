@@ -122,6 +122,7 @@ pages:
     - 'Explicit Routing': 'router-routing.md'
     - 'Outlets': 'router-outlets.md'
     - 'Router State': 'router-state.md'
+    - 'Custom Routing': 'router-custom.md'
     - 'Animation': 'router-animation.md'
     - 'Lifecycle': 'router-lifecycle.md'
   - 'Components':
