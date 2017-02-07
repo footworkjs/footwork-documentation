@@ -26,7 +26,13 @@ router.activated.subscribe(function (activated) {
 
 ## Current State
 
-The `currentState` of your router is the state it is presently addressed to - this matches up with and is manipulated by the HTML History API state. You can track/manage the router state at this property on the instance:
+The `currentState` of your router is the an [observable property](observables.md) used to track and trigger the browser state it is presently addressed to. When this value changes a route lookup is triggered, and the first matching route is triggered. This property:
+
+* Can be altered explicitly (it is a normal [observable property](observables.md)).
+
+* Is manipulated by the HTML History API ([popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) propogate to it).
+
+Using this property you can track/manage the router state, for example you can subscribe to it to track any changes:
 
 ```javascript
 router.currentState.subscribe(function (currentState) {
@@ -34,28 +40,36 @@ router.currentState.subscribe(function (currentState) {
 });
 ```
 
-!!! Tip
-    Note that it **is possible** to change the route by directly manipilating the `currentState` observable on the router instance:
+When the `currentState` is altered it triggers a route lookup and triggering of its controller (if found). While it is recommended to use the [router.pushState/router.replaceState](router-routing.md#state-change-methods) methods when changing the route explicitly, it **is possible** to change the route by directly manipilating the `currentState` observable on the router instance:
 
-    ```javascript
-    router.currentState('/news');
-    ```
+```javascript
+router.currentState('/news');
+```
 
-    Doing so has some side-effects however. Changing the route/state in this way means:
+Doing so has some side-effects however. Changing the route/state in this way means:
 
-    * You bypass any route predicate callbacks.
+* You bypass any route predicate callbacks.
 
-        The route triggered by the state you set will **always trigger** even if the [route predicate](router-route-config.md#predicate-callback) would fail (because it never gets called).
+    The route triggered by the state you set will **always trigger** even if the [route predicate](router-route-config.md#predicate-callback) would fail (because it never gets called).
 
-    * Browser history will not be affected.
+* Browser history will not be affected.
 
-    For more information on implementing custom routing logic, see [Custom Routing](router-custom.md).
+!!! Note
+    If you use the [router.pushState/router.replaceState](router-routing.md#state-change-methods) methods when changing the route explicitly then the previously mentioned side effects of direct `currentState` manipulation are not of concern because:
+    
+    * The predicates queried before the route is allowed to execute
+
+    * The browser history is correctly pushed/replaced
+
+    See [Explicit Routing](router-routing.md) for more details.
 
 ## Current Route
 
-The route expressed by your router is done by subscribing to the [`currentState`](#current-state) value and evaluating that against the `routes` you have defined on the router. This evaluation happens any time the `currentState` changes. That can occur as a result of:
+The route expressed by your router is triggered by a subscription to the [`currentState`](#current-state) value and evaluating that against the `routes` you have defined. This evaluation happens any time the `currentState` changes. That can occur as a result of:
 
-1. A change is made on the routers `currentState` (manually or via [router.pushState/router.replaceState](router-routing.md#state-change-methods))
+1. A change is made on the routers `currentState` explicitly/directly.
+
+1. A change is made on the routers `currentState` via [router.pushState/router.replaceState](router-routing.md#state-change-methods)
 
 1. A browser history state is popped (ie: user hit back or forward)
 
@@ -67,23 +81,7 @@ router.currentRoute.subscribe(function (currentRoute) {
 });
 ```
 
-!!! Tip
-    Note that it **is possible** to change the route by directly manipilating the `currentRoute` observable on the router instance.
-
-    ```javascript
-    router.currentRoute({
-      route: {
-        controller: function () { /* ... */ }
-      }
-    });
-    ```
-
-    Doing this has similar side effects to directly manipulating the `currentState`, in that:
-
-    * You bypass any route predicate callbacks.
-
-        The route triggered by the state you set will **always trigger** even if the [route predicate](router-route-config.md#predicate-callback) would fail (because it never gets called).
-
-    * Browser history will not be affected.
+!!! Note
+    It **is possible** to change the route by directly manipilating the `currentRoute` observable on the router instance.
 
     For more information on implementing custom routing logic, see [Custom Routing](router-custom.md).

@@ -29,7 +29,7 @@ A named route is supplied using an *object configuration*:
 }
 ```
 
-Note the object configuration has two parameters, *name* which is required, and *params* which is optional (although your [route config](router-route-config.md#configuration-options) may [require some params](router-route-config.md#required-parameter)).
+Note the object configuration has two parameters, *name* which is required, and *params* which is optional. Any parameters you define in a named route will be passed along to the controller method when it is triggered.
 
 ## State Change Methods
 
@@ -42,9 +42,6 @@ Changing the route explicitly is facilitated by two methods:
 * [replaceState](#replacestate)
 
     Set the router state, replacing the current browser history entry.
-
-!!! Note "Named Route Conversion"
-    When you route with a *named route* it will be translated into its url form (according to its [route config](router-route-config.md#configuration-options)) and then used to set the `router.currentState` observable value.
 
 For both [pushState](#pushstate) and [replaceState](#replacestate) below, consider this example router:
 
