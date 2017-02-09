@@ -39,10 +39,12 @@ function MyRouter () {
     routes: [
       {
         id: 1,
+        title: 'Page 1',
         controller: function () { /* ... */ }
       },
       {
         id: 2,
+        title: 'Page 2',
         controller: function () { /* ... */ }
       }
     ]
