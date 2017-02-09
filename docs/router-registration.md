@@ -102,9 +102,9 @@ define(["footwork"],
   function (fw) {
     return function MyRouter () {
       var self = fw.router.boot(this, {
-        namespace: 'MyRouter'
+        namespace: 'MyRouter',
+        routes: [ /* ... */ ]
       });
-      self.myName = fw.observable('Smith');
     };
   }
 );
