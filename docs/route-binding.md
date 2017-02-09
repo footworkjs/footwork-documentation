@@ -35,7 +35,9 @@ When Footwork encounters a `route` binding:
 
 1. The binding is now active until the element is removed from the DOM. It will respond to the configured event on the element.
 
-    When that event is triggered, its nearest parent router state is changed per the route binding configuration.
+1. Anytime the event is triggered, its nearest parent router state is changed per the route binding configuration.
+    
+    The method defined by the [history option](#history-string-callback) (pushState/replaceState) on the route binding is the one used to manipulate the route.
 
 1. The element is removed from the DOM, its handler is unsubscribed from the event and the binding is disposed of.
 
@@ -43,7 +45,7 @@ When Footwork encounters a `route` binding:
 
 There are several options available when binding a route with an options object:
 
-* [url](#url-string) (string)
+* [state](#state-string) (string)
 * [on](#on-string) (string)
 * [activeClass](#activeclass-string-callback) (string | callback)
 * [history](#history-string-callback) (string | callback)
@@ -54,25 +56,31 @@ There are several options available when binding a route with an options object:
 
     This means that when you bind a callback/handler in your DOM it will be binding against the local view model the element is bound against, which is *not necessarily* the parent router (the router is likely/usually higher in the DOM tree).
 
-### url (string)
+### state (string | object)
 
-The url route string used when the user triggers the binding.
+The state written to the routers currentState (as well as browser history) when the user triggers the binding.
+
+#### String Value
 
 ```html
-<a data-bind="route: { url: '/profile' }">Profile</a>
+<a data-bind="route: '/profile'">Profile</a>
+```
+
+#### Object
+
+```html
+<a data-bind="route: { state: '/profile' }">Profile</a>
 ```
 
 !!! Note
 
-    * This will override the element `href` if present.
+    If this value is provided as a string it will be used to set the element `href` attribute value.
 
-    * If the bound element is an anchor tag, then this value will be used to set the `href` attribute on it.
-
-    Search engines can use this when indexing the document. This also means users will be able to hover their mouse over to inspect or copy/paste any `route` bound link (just as they would any other link).
+    Search engines will then be able to use this when indexing the document. This also means users will be able to hover their mouse over to inspect, right-click to open in new window, or copy/paste any `route` bound link (just as they would any other *normal link*).
 
 ### on (string)
 
-You can provide a different event upon which the binding is triggered:
+You can specify a different event upon which the binding is bound/triggered:
 
 ```html
 <a data-bind="route: { on: 'dblclick' }" href="/profile">Profile</a>
