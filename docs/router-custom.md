@@ -19,7 +19,7 @@ Footwork provides routing logic which flows as follows:
 
 1. The `currentRoute` is executed.
 
-    This is done via a subscription to the property, anytime it changes the new route will have its controller executed with the provided parameters.
+    This is done via a subscription to the `currentRoute` property. Anytime it changes the new route will have its controller executed with the provided parameters.
 
 ## Modifying Route Lookup
 

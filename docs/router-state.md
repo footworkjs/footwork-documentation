@@ -1,10 +1,10 @@
-A routers purpose is to help you manage the state of your application. As such, it itself has a few properties attached to it that you may need to access or manipulate.
+A routers purpose is to help you manage the state of your application. It actions are based on the state of various properties on the instance itself. This page describes those properties and their function.
 
 ## Router Activation
 
-Sometimes you may wish to more closely or explicitly manage the activation of your router. By default a router is configured to immediately activate once it has been bound to the DOM. You can disable this via setting the `activate` option to *false* on a router config (see: [Router Configuration](router-creation.md#configuration)).
+By default a router is configured to immediately activate once it has been bound to the DOM. Sometimes you may wish to more closely or explicitly manage the activation of your router. You can disable the automatic activation via setting the `activate` option to *false* on a router config (see: [Router Configuration](router-creation.md#configuration)).
 
-You can enable/disable the activation of a router at any point using the `activated` observable on the instance:
+A router will not trigger a route controller unless it is activated. You can enable/disable the activation of a router at any point using the `activated` observable on the instance:
 
 ```javascript
 router.activated(false); // router will no longer trigger routes
@@ -26,7 +26,7 @@ router.activated.subscribe(function (activated) {
 
 ## Current State
 
-The `currentState` of your router is the an [observable property](observables.md) used to track and trigger the browser state it is presently addressed to. When this value changes a route lookup is triggered, and the first matching route is triggered. This property:
+The `currentState` of your router is an [observable property](observables.md) used to track the browser state. When this value changes a route lookup is triggered, and the first matching route controller is called. The currentState property:
 
 * Can be altered explicitly (it is a normal [observable property](observables.md)).
 
@@ -73,15 +73,6 @@ The route expressed by your router is triggered by a subscription to the [`curre
 
 1. A browser history state is popped (ie: user hit back or forward)
 
-If you want to know what route is being filtered out of your routes and expressed at any given time then that is done by observing the `currentRoute` value:
+Once the route is found, it along with any parameters are stored in the `currentRoute` observable property. A subscription to the `currentRoute` then executes its controller, passing in any parameters defined.
 
-```javascript
-router.currentRoute.subscribe(function (currentRoute) {
-  console.info('The current route is:', currentRoute);
-});
-```
-
-!!! Note
-    It **is possible** to change the route by directly manipilating the `currentRoute` observable on the router instance.
-
-    For more information on implementing custom routing logic, see [Custom Routing](router-custom.md).
+For more information on the routing process or how to implement custom routing logic, see [Custom Routing](router-custom.md).
