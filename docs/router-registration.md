@@ -15,19 +15,24 @@ This method can be called in several different ways:
     ```javascript
     fw.router.register('MyRouter', function MyRouter () {
       var self = fw.router.boot(this, {
-        namespace: 'MyRouter'
+        namespace: 'MyRouter',
+        routes: [ /* ... */ ]
       });
-      self.myName = 'Smith';
     });
     ```
 
-* **Registering a shared object instance**
+* **Registering a shared instance**
 
     ```javascript
+    function MyRouter () {
+      var self = fw.router.boot(this, {
+        namespace: 'MyRouter',
+        routes: [ /* ... */ ]
+      });
+    }
+
     fw.router.register('MyRouter', {
-      instance: {
-        myName: 'Smith';
-      }
+      instance: new MyRouter()
     });
     ```
 
@@ -36,6 +41,13 @@ This method can be called in several different ways:
     By utilizing a `createRouter` factory you can introduce custom logic to create a `router` each time a new one is requested:
 
     ```javascript
+    function MyRouter () {
+      var self = fw.router.boot(this, {
+        namespace: 'MyRouter',
+        routes: [ /* ... */ ]
+      });
+    }
+
     fw.router.register('MyRouter', {
       createRouter: function (params, info) {
         // info.element === container/parent element

@@ -24,10 +24,15 @@ This method can be called in several different ways:
 * **Registering a shared object instance**
 
     ```javascript
+    function MyViewModel () {
+      var self = fw.viewModel.boot(this, {
+        namespace: 'MyViewModel'
+      });
+      self.myName = fw.observable('Smith');
+    }
+
     fw.viewModel.register('MyViewModel', {
-      instance: {
-        myName: 'Smith';
-      }
+      instance: new MyViewModel()
     });
     ```
 
@@ -36,6 +41,13 @@ This method can be called in several different ways:
     By utilizing a `createViewModel` factory you can introduce custom logic to create a `viewModel` each time a new one is requested:
 
     ```javascript
+    function MyViewModel () {
+      var self = fw.viewModel.boot(this, {
+        namespace: 'MyViewModel'
+      });
+      self.myName = fw.observable('Smith');
+    }
+
     fw.viewModel.register('MyViewModel', {
       createViewModel: function (params, info) {
         // info.element === container/parent element

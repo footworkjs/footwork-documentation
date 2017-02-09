@@ -45,7 +45,7 @@ When Footwork encounters a `route` binding:
 
 There are several options available when binding a route with an options object:
 
-* [state](#state-string) (string)
+* [state](#state-string-object) (string | object)
 * [on](#on-string) (string)
 * [activeClass](#activeclass-string-callback) (string | callback)
 * [history](#history-string-callback) (string | callback)

@@ -17,17 +17,22 @@ This method can be called in several different ways:
       var self = fw.dataModel.boot(this, {
         namespace: 'MyDataModel'
       });
-      self.myName = 'Smith';
+      self.myName = fw.observable('Smith').map('myName', self);
     });
     ```
 
-* **Registering a shared object instance**
+* **Registering a shared instance**
 
     ```javascript
-    fw.dataModel.register('MyDataModel', {
-      instance: {
-        myName: 'Smith';
-      }
+    function MyDataModel () {
+      var self = fw.dataModel.boot(this, {
+        namespace: 'MyDataModel'
+      });
+      self.myName = fw.observable('Smith').map('myName', self);
+    }
+
+    fw.router.register('MyDataModel', {
+      instance: new MyDataModel()
     });
     ```
 
@@ -36,6 +41,13 @@ This method can be called in several different ways:
     By utilizing a `createDataModel` factory you can introduce custom logic to create a `dataModel` each time a new one is requested:
 
     ```javascript
+    function MyDataModel () {
+      var self = fw.dataModel.boot(this, {
+        namespace: 'MyDataModel'
+      });
+      self.myName = fw.observable('Smith').map('myName', self);
+    }
+    
     fw.dataModel.register('MyDataModel', {
       createDataModel: function (params, info) {
         // info.element === container/parent element
