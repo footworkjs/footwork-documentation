@@ -164,3 +164,18 @@ self.goToProfile = function (event, url) {
   }
 };
 ```
+
+You can also return a url to route to from the callback:
+
+```javascript
+self.goToProfile = function (event, url) {
+  // preventDefault prevents the browser from loading the new url
+  event.preventDefault();
+
+  if (url === '/profile' && isLoggedIn) {
+    return '/profile-page'; // set the state and route to /profile-page (as opposed to /profile)
+  } else {
+    return false; // nothing will happen
+  }
+};
+```

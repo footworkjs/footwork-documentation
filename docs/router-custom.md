@@ -1,6 +1,6 @@
 You may have routing requirements which are different than what Footwork provides, or you want to inject some behavior into the process. This page explains the routing process and how manipulate (or replace) it.
 
-## Standard Routing Flow
+## Routing Lifecycle
 
 Footwork provides routing logic which flows as follows:
 
@@ -15,19 +15,87 @@ Footwork provides routing logic which flows as follows:
 
 1. The new route is looked up via [router.getRouteForState](#getrouteforstate).
 
-    This method is expected to take the currentState and use that to lookup and write the new route details to the `router.currentRoute` observable property.
+    This method is expected to take the currentState and use that to lookup and return the new route details. See [route resolution and execution](#route-resolution-and-execution).
 
 1. The `currentRoute` is executed.
 
-    This is done via a subscription to the `currentRoute` property. Anytime it changes the new route will have its controller executed with the provided parameters.
+    A deep object comparison is done on the old route and newly written currentRoute, *if* they are different then the route is executed.
 
-## Modifying Route Lookup
+## Route Resolution and Execution
 
 `router.getRouteForState(currentState)`
 
-When the [currentState](router-state.md#current-state) changes, `router.getRouteForState` is the method used to lookup the route. Its function is to lookup the route using the currentState and write the route as well as any parameters to the `router.currentRoute` observable (which is then used to trigger the route execution).
+When the [currentState](router-state.md#current-state) changes, `router.getRouteForState` is the method used to lookup the route. Its function is to lookup the route using the currentState and return the route details (if a matching route was located).
 
-You can override this method and provide your own unique routing logic. For example if you wanted to route according to a numeric id, you might override the routing mechanism like this:
+The value returned is what is written to `router.currentRoute` (which is then executed), you can store any details about the current route by returning them in the route details from getRouteForState.
+
+Once a route different from the previous route is returned, it will be executed. There are several parameters Footwork will look for when executing it (although you can store whatever you like in this object):
+
+```javascript
+// route details object returned from getRouteForState
+{
+  controller: /* see below */,
+  title: /* see below */,
+  params: /* see below */,
+  url: /* see below */
+}
+```
+
+* [controller](#controller-callback) (callback) *(required)*
+* [url](#url-string) (string) *(optional)*
+* [title](#title-string) (string) *(optional)*
+* [params](#params-any) (any) *(optional)*
+
+### controller (callback)
+
+This is the callback executed for the route. It is passed any params defined by the route details.
+
+```javascript
+{
+  controller: function (routeParams) {
+    this.outlet('display-area', 'some-component');
+  }
+}
+```
+
+### url (string)
+
+If provided, this value will be used to set the browser url.
+
+```javascript
+{
+  url: '/path/to/route'
+}
+```
+
+### title (string)
+
+If provided, this value will be used to set the browser title.
+
+```javascript
+{
+  title: 'My Cool Page'
+}
+```
+
+### params (any)
+
+If provided, this value will be provided to the controller callback.
+
+```javascript
+{
+  controller: function (params) {
+    // params.value === 1
+  },
+  params: {
+    value: 1
+  }
+}
+```
+
+## Example Custom Routing
+
+You can override the getRouteForState method and provide your own unique routing logic. For example if you wanted to route according to a numeric id, you might override the routing mechanism like this:
 
 ```javascript
 function MyRouter () {
@@ -53,29 +121,33 @@ function MyRouter () {
   // Override getRouteForState
   self.getRouteForState = function (currentState) {
     // Search for the route using the currentState.
-    var foundRoute = self.routes().reduce(function (foundRoute, route) {
-      if (route.id === currentState) {
-        foundRoute = route;
+    return self.routes().reduce(function (foundRoute, route) {
+      if (route.id === currentState.id) {
+        /**
+         * We return the route and any params that were passed along.
+         * The params will be provided to the controller callback on
+         * the route when it is triggered.
+         */
+        return {
+          controller: route.controller,
+          title: route.title,
+          params: currentState.params
+        }
       }
       return foundRoute;
     }, null);
-
-    if (foundRoute) {
-      /**
-       * After finding the route we then write it and any params
-       * that were passed along. The params will be provided to the
-       * controller callback on the route when it is triggered.
-       */
-      self.currentRoute({
-        route: foundRoute,
-        params: currentState.params
-      });
-    }
   };
 }
 ```
 
-You could then route to one of those on an instance of the router like this:
+!!! Tip
+    It doesn't matter where or how your routes are stored. The example above shows custom routing using the standard `routes` observable on the router. Keep in mind you could store your routes anywhere or even generate them on the fly if you wanted to.
+
+### Triggering a Custom Route
+
+Triggering one of these custom routes would be done like any other route. The state you set `currentState` to is what is passed to the `getRouteForState` callback. This means that you can continue to use the standard [router.pushState/router.replaceState](router-routing.md#state-change-methods) and route bindings like you normally would.
+
+Example [router.pushState](router-routing.md#state-change-methods):
 
 ```javascript
 router.pushState({
@@ -86,13 +158,13 @@ router.pushState({
 });
 ```
 
-A [route binding](route-binding.md) will work also (since it is simply writing the state that you provide):
+Example [route binding](route-binding.md):
 
 ```html
 <a data-bind="route: {
   state: {
     id: 2,
-    params: { some: 'value' }
+    params: { thing: 'value' }
   }
 }">Go to Route 2</a>
 ```
@@ -107,19 +179,3 @@ A [route binding](route-binding.md) will work also (since it is simply writing t
     ```
 
     For more info see [route binding](route-binding.md).
-
-In the overridden getRouteForState callback above, the `foundRoute` object (written to `self.currentRoute`) is a [route config](router-route-config.md#configuration-options) object. A route config is the configuration you register as a route (typically in the boot config as seen above or afterwards, explicitly in the `router.routes` observable array, see: [defining and accessing the routes](router-route-config.md#defining-and-accessing-the-routes)).
-
-[Route config](router-route-config.md#configuration-options) objects have only one required property, the `controller` method to be called when the route is executed. Every other property is used in the process of finding and determining whether the route is applicable.
-
-For example, the default routing logic uses these route config objects to store the [route predicate](router-route-config.md#predicate-callback) as well as having options for naming a route/etc. You can use these route configuration objects to manage any attribute pertaining to a route...however there are two parameters that Footwork will always look for when executing a new route:
-
-* [controller](router-route-config.md#controller-callback) (callback)
-  
-    As mentioned above, this is the callback triggered when the route is activated.
-
-* [title](router-route-config.md#title-string-callback) (string / callback) *(optional)*
-
-    When the route controller is executed the page title will be set to this value (if provided).
-
-

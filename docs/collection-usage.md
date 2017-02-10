@@ -1,4 +1,4 @@
-One of the most common uses for a collection is retrieving its data from a remote location and displaying that to the user.
+Collections store lists of data. Often times, they are typically used to fetch their list from an endpoint so that it can be rendered and displayed on the browser.
 
 !!! Note
     Fetching collection data requires that the collection be properly configured with a `url` to grab the data from. See [collection configuration](collection-creation.md#using-a-configuration) for more information on how to do that.
@@ -214,11 +214,13 @@ var weNeedOne = groceries.where({
 
 ## Animations
 
-Often times when rendering a list of items in a collection it would be nice to animate them into place. Using a declarative view model or component this is possible.
+Rendering a list of collections into place all at once can create a jerky/thrashing sort of experience for the end user. Because of this, Footwork provides an easy method of animating a list of items into place.
+
+To accomplish this, we can render a declarative [viewModel](viewModel-animation.md) or [dataModel](dataModel-animation.md), or [component](component-animation.md) for each item in a collection - and provide a `sequence` value.
 
 ### View Model
 
-One option is we can use declarative [viewModel animations](viewModel-animation.md) in conjunction with the collection.
+For example, lets say we use a declarative [viewModel animations](viewModel-animation.md) in conjunction with the collection.
 
 The following is an example of how to do that with the grocery collection from above. First lets update the main view to render a `grocery-item` for each item in the collection:
 
