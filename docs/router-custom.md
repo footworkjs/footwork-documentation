@@ -7,11 +7,9 @@ Footwork provides routing logic which flows as follows:
 1. A change is made on a routers [currentState](router-state.md#current-state) property. This can occur as a result of:
     
     * Direct manipulation
-    
     * [router.pushState/router.replaceState](router-routing.md#state-change-methods)
-    
-        !!! Note
-            When a [route binding](route-binding.md) is triggered it will use [router.pushState/router.replaceState](router-routing.md#state-change-methods) when manipulating the route.
+    * [route binding](route-binding.md)
+    * Browser history [popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) are written to it.
 
 1. The new route is looked up via [router.getRouteForState](#getrouteforstate).
 

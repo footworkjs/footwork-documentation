@@ -34,6 +34,7 @@ The `currentState` can be altered:
 
 * Explicitly (it is a normal [observable property](observables.md)).
 * Via [router.pushState/router.replaceState](router-routing.md#state-change-methods).
+* Via [route binding](route-binding.md)
 * Browser history [popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) are written to it.
 
 Using this property you can track/manage the router state, for example you can subscribe to it to track any changes:
@@ -44,7 +45,25 @@ router.currentState.subscribe(function (currentState) {
 });
 ```
 
-When the `currentState` is altered it triggers a route lookup and triggering of its controller (if found).
+Examples of direct manipulation:
+
+```javascript
+router.currentState('/url/for/route');
+```
+
+```javascript
+router.currentState({
+  name: 'my-route',
+  params: {
+    thing: 'value'
+  }
+});
+```
+
+When the `currentState` is altered it triggers a route lookup, the resulting route returned is written to the [currentRoute](#current-route).
+
+!!! Note
+    For more information on the routing process or how to implement custom routing logic, see [Custom Routing](router-custom.md).
 
 ## Current Route
 
@@ -54,4 +73,5 @@ The `currentRoute` of your router is an [observable property](observables.md) wh
 
 It is updated via a subscription to the [`currentState`](#current-state) value. Any change to the currentState will be evaluated against the [router configurations](router-creation.md#configuration) you have defined. Once the matching route config is found, the route is generated and stored in the `currentRoute` observable property. A subscription to the `currentRoute` then executes its controller, passing in any parameters defined.
 
-For more information on the routing process or how to implement custom routing logic, see [Custom Routing](router-custom.md).
+!!! Note
+    For more information on the routing process or how to implement custom routing logic, see [Custom Routing](router-custom.md).
