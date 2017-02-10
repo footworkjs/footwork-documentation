@@ -19,6 +19,9 @@ There are several important aspects/properties of outlets that you should be awa
 
 * Outlets can load/display any component.
 
+    !!! Tip
+        The display component specified here is simply a normal component, and so you can [register and load them](component-registration.md) just like any other component.
+
 * An outlet is manipulated/controlled by its parent router.
 
 * Outlets can be nested deeply inside of components/viewModels/etc.
@@ -124,13 +127,28 @@ router.outlet('outletName', {
 
 #### display (string)
 
-When specifying an outlet change with a configuration object this is how you specify what component to display:
+When specifying an outlet change with a configuration object this is how you specify what component to display.
+
+For example, take the following outlet change:
 
 ```javascript
 router.outlet('main-view', {
   display: 'home-page'
 });
 ```
+
+...and then you might have a corresponding component viewModel registered for `home-page` like so:
+
+```javascript
+fw.components.register('home-page', {
+  template: 'This is my home page!'
+});
+```
+
+!!! Tip
+    Remember that the display specified here is a normal component, and so you can [register and load them](component-registration.md) just like any other component.
+
+    You probably should not register them with their HTML inline as shown here.
 
 #### loading (string)
 
@@ -157,7 +175,9 @@ router.outlet('main-view', {
 
 #### params (object)
 
-If the component you are switching the outlet to has a configured view model, then the options you supply here will be provided to it.
+The params value supplied here will be passed to factory method of the view model instantiated for the outlet display.
+
+For example, take the following outlet change which specifies a params value:
 
 ```javascript
 router.outlet('user-display', {
@@ -168,20 +188,23 @@ router.outlet('user-display', {
 });
 ```
 
-...and then you might have a corresponding viewModel registered for `user-profile` like so:
+...and then you might have a corresponding component viewModel registered for `user-profile` like so:
 
 ```javascript
-function UserProfile (params) {
-  var self = fw.viewModel.boot(this, {
-    namespace: 'user-profile'
-  });
+fw.components.register('user-profile', {
+  viewModel: function UserProfile (params) {
+    var self = fw.viewModel.boot(this, {
+      namespace: 'UserProfile'
+    });
 
-  /**
-   * Note that we are using the supplied params.userId
-   * passed in from the call to router.outlet from above.
-   */
-  self.id = fw.observable(params.userId);
-}
+    /**
+    * Note that we are using the supplied params.userId
+    * passed in from the call to router.outlet from above.
+    */
+    self.id = fw.observable(params.userId);
+  },
+  template: 'User ID <span data-bind="text: id"></span>'
+});
 ```
 
 #### onComplete (callback)

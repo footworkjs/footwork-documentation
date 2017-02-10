@@ -80,7 +80,7 @@ The state written to the routers currentState (as well as browser history) when 
 
 ### on (string)
 
-You can specify a different event upon which the binding is bound/triggered:
+You can specify a different event upon which the binding is bound/triggered (default is `click`):
 
 ```html
 <a data-bind="route: { on: 'dblclick' }" href="/profile">Profile</a>

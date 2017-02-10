@@ -27,10 +27,10 @@ When the [currentState](router-state.md#current-state) changes, `router.getRoute
 
 The value returned is what is written to `router.currentRoute` (which is then executed), you can store any details about the current route by returning them in the route details from getRouteForState.
 
-Once a route different from the previous route is returned, it will be executed. There are several parameters Footwork will look for when executing it (although you can store whatever you like in this object):
+If the route returned is different from the previous route then it will be executed. There are several parameters Footwork will look for when executing it (although you can store whatever you like in this object):
 
 ```javascript
-// route details object returned from getRouteForState
+// route details object returned from getRouteForState(currentState)
 {
   controller: /* see below */,
   title: /* see below */,
@@ -40,9 +40,9 @@ Once a route different from the previous route is returned, it will be executed.
 ```
 
 * [controller](#controller-callback) (callback) *(required)*
-* [url](#url-string) (string) *(optional)*
 * [title](#title-string) (string) *(optional)*
 * [params](#params-any) (any) *(optional)*
+* [url](#url-string) (string) *(optional)*
 
 ### controller (callback)
 
@@ -53,16 +53,6 @@ This is the callback executed for the route. It is passed any params defined by 
   controller: function (routeParams) {
     this.outlet('display-area', 'some-component');
   }
-}
-```
-
-### url (string)
-
-If provided, this value will be used to set the browser url.
-
-```javascript
-{
-  url: '/path/to/route'
 }
 ```
 
@@ -88,6 +78,16 @@ This value will be provided to the controller callback.
   params: {
     value: 1
   }
+}
+```
+
+### url (string)
+
+If provided, this value will be used to set the browser url.
+
+```javascript
+{
+  url: '/path/to/route'
 }
 ```
 
