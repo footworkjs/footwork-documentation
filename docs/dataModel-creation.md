@@ -4,9 +4,9 @@ A `dataModel` can be thought of as an enhanced [viewModel](viewModel-creation.md
 
 With a `dataModel`, in addition to its [viewModel](viewModel-creation.md) capabilities you can:
 
-* Retreive data from an endpoint
-* Save data on an endpoint
 * Create a new record on an endpoint
+* Retreive data from an endpoint
+* Update data on an endpoint
 * Delete a record on an endpoint
 
 A typical use case for a `dataModel` is when you want to store/retrieve/delete data on a server, and bind that to your UI with a form.

@@ -30,6 +30,9 @@ router.activated.subscribe(function (activated) {
 
 The `currentState` of your router is an [observable property](observables.md) used to track the browser state. When this value changes a route lookup is triggered, and the first matching route has its controller called.
 
+!!! Note
+    This value is initially set to the browsers current location when the router is activated (if it does not yet have a value).
+
 The `currentState` can be altered:
 
 * Explicitly (it is a normal [observable property](observables.md)).
