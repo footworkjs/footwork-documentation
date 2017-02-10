@@ -26,11 +26,15 @@ router.activated.subscribe(function (activated) {
 
 ## Current State
 
-The `currentState` of your router is an [observable property](observables.md) used to track the browser state. When this value changes a route lookup is triggered, and the first matching route controller is called. The currentState property:
+`router.currentState`
 
-* Can be altered explicitly (it is a normal [observable property](observables.md)).
+The `currentState` of your router is an [observable property](observables.md) used to track the browser state. When this value changes a route lookup is triggered, and the first matching route has its controller called.
 
-* Is manipulated by the HTML History API ([popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) propogate to it).
+The `currentState` can be altered:
+
+* Explicitly (it is a normal [observable property](observables.md)).
+* Via [router.pushState/router.replaceState](router-routing.md#state-change-methods).
+* Browser history [popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) are written to it.
 
 Using this property you can track/manage the router state, for example you can subscribe to it to track any changes:
 
@@ -44,14 +48,10 @@ When the `currentState` is altered it triggers a route lookup and triggering of 
 
 ## Current Route
 
-The route expressed by your router is triggered by a subscription to the [`currentState`](#current-state) value and evaluating that against the `routes` you have defined. This evaluation and subsequent triggering happens any time the `currentState` changes.
+`router.currentRoute`
 
-The `currentState` can be altered:
+The `currentRoute` of your router is an [observable property](observables.md) which stores the currently active route.
 
-* Explicitly.
-* Via [router.pushState/router.replaceState](router-routing.md#state-change-methods).
-* Browser history [popstate events](https://developer.mozilla.org/en-US/docs/Web/Events/popstate) are written to it.
-
-Once the route is found, it along with any parameters are stored in the `currentRoute` observable property. A subscription to the `currentRoute` then executes its controller, passing in any parameters defined.
+It is updated via a subscription to the [`currentState`](#current-state) value. Any change to the currentState will be evaluated against the [router configurations](router-creation.md#configuration) you have defined. Once the matching route config is found, the route is generated and stored in the `currentRoute` observable property. A subscription to the `currentRoute` then executes its controller, passing in any parameters defined.
 
 For more information on the routing process or how to implement custom routing logic, see [Custom Routing](router-custom.md).
