@@ -18,9 +18,11 @@ When a `router` is injected into your application:
 
     * Its `afterRender` callback will be triggered.
 
-1. **The router is active**
+1. **The router is activated**
 
     * Now the router is operating, and can remain on-screen for as long as needed.
+
+    * The router will respond to changes on its currentState and currentRoute observables (see: [router state](router-state.md) and [custom routing](router-custom.md)).
 
     * After all nested elements (components/routers/etc) are resolved then it has its `afterResolve` callback triggered.
 
@@ -66,16 +68,13 @@ Disposal is most easily achieved by ensuring these values are attached directly 
 function Router () {
   var self = fw.router.boot(this);
 
-  self.firstName = fw.observable();
-  self.lastName = fw.observable();
-
-  self.fullName = fw.computed(function () {
-    return self.firstName() + ' ' + self.lastName();
-  }).broadcast('fullName', self);
+  self.stateWatcher = self.currentState.subscribe(function(currentState) {
+    console.log('currentState', currentState);
+  });
 }
 ```
 
-In the above example the `fullName` (property needing disposal) will be disposed of automatically when the `router` instance is removed from the DOM (or disposed of explicitly, if not bound against the DOM).
+In the above example the `stateWatcher` (property needing disposal) will be disposed of automatically when the `router` instance is removed from the DOM (or disposed of explicitly, if not bound against the DOM).
 
 ### **Explicit Automatic Disposal**
 
@@ -87,13 +86,11 @@ You could track and dispose of them yourself when the parent router is disposed 
 function Router () {
   var self = fw.router.boot(this);
 
-  self.firstName = fw.observable();
-
-  var randomSubscription = self.firstName.subscribe(function (firstName) {
-    console.log('first name is now', firstName);
+  var stateWatcher = self.currentState.subscribe(function(currentState) {
+    console.log('currentState', currentState);
   });
 
-  self.disposeWithInstance(randomSubscription);
+  self.disposeWithInstance(stateWatcher);
 }
 ```
 
