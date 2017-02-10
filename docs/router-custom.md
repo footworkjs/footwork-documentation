@@ -80,7 +80,7 @@ If provided, this value will be used to set the browser title.
 
 ### params (any)
 
-If provided, this value will be provided to the controller callback.
+This value will be provided to the controller callback.
 
 ```javascript
 {
