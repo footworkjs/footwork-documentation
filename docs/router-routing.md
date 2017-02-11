@@ -52,8 +52,8 @@ function Router () {
     routes: [
       {
         name: 'user-profile',
-        route: '/user/:id/profile',
-        controller: function () { /* ... */ }
+        path: '/user/:id/profile',
+        controller: function (params) { /* ... */ }
       }
     ]
   });

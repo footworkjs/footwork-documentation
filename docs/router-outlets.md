@@ -1,4 +1,4 @@
-Outlets are areas of your application where you can control what is displayed from its parent router by instructing it to display a component.
+Outlets are areas of your application where you can control what is displayed.
 
 You can use these outlets to display different things, such as entire pages (containing their own sub-elements such as viewModels and other components), or just singular displays like a user profile. What you display and how you use them is up to you.
 
@@ -20,9 +20,11 @@ There are several important aspects/properties of outlets that you should be awa
 * Outlets can load/display any component.
 
     !!! Tip
-        The display component specified here is simply a normal component, and so you can [register and load them](component-registration.md) just like any other component.
+        The display component specified here is simply a normal component, so you can [register and load them](component-registration.md) just like any other component.
 
-* An outlet is manipulated/controlled by its parent router.
+* An outlet is manipulated/controlled by its parent router, and is addressed via its string name.
+
+* Outlets can be changed at any time, but are often altered from within a route controller (ex: a page change).
 
 * Outlets can be nested deeply inside of components/viewModels/etc.
 
@@ -103,6 +105,8 @@ The above statement will remove the contents of the `main-view` outlet and swap 
 !!! Note "Animations"
     Keep in mind that all of the animation capabilities are usable...so for instance if the `home-page` component is defined with a *fadeIn* animation, then it will fade into place.
 
+    For more info see [component animation](component-animation.md).
+
 ### Outlet Options
 
 If you require more than a simple display change then there are several additional options available:
@@ -146,7 +150,7 @@ fw.components.register('home-page', {
 ```
 
 !!! Tip
-    Remember that the display specified here is a normal component, and so you can [register and load them](component-registration.md) just like any other component.
+    Remember that the display specified here is a normal component, so you can [register and load them](component-registration.md) just like any other component.
 
     You probably should not register them with their HTML inline as shown here.
 
