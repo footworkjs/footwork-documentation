@@ -78,7 +78,7 @@ function MyRouter () {
 }
 ```
 
-Namespaces in Footwork are a mechanism used to help keep your application [loosely coupled yet highly cohesive](https://thebojan.ninja/2015/04/08/high-cohesion-loose-coupling/). Among other things, namespacing provides hooks for pub/sub communication, [router animation](router-animation.md), as well as [broadcastables / receivables](broadcastable-receivable.md). For more information see [namespaces](namespacing.md).
+Namespaces in Footwork are a mechanism used to help keep your application [loosely coupled yet highly cohesive](https://thebojan.ninja/2015/04/08/high-cohesion-loose-coupling/). Among other things, namespacing provides hooks for pub/sub communication, as well as [broadcastables / receivables](broadcastable-receivable.md). For more information see [namespaces](namespacing.md).
 
 ### afterRender (callback)
 
@@ -96,7 +96,7 @@ Prospectively you might use this as a way to startup various 3rd party plugins s
 
 ### afterResolve (callback)
 
-This callback is triggered after binding the `router` with the DOM and all nested components/routers/etc have been fully resolved as well.
+This callback is triggered after binding the `router` with the DOM and all nested components/etc have been fully resolved as well.
 
 If you are animating a `router` into place then that will only occur once the instance has been resolved. Note that the resolution of your `router` only affects when it is animated into place, it does not affect when it is bound or rendered into the DOM (that occurs as soon as possible). If you are not animating your instances into place then you do not need to worry about when it is resolved. For information on how to use the animation features, see [animating routers](router-animation.md).
 

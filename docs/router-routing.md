@@ -60,6 +60,8 @@ function Router () {
 }
 ```
 
+The following shows examples of how we could trigger the configured route using pushState/replaceState (assuming it is already [instantiated and activated](router-usage.md)):
+
 ### pushState
 
 * Push using a url route:
