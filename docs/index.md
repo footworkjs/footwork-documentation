@@ -56,26 +56,26 @@ Contributions towards the website and/or documentation are also encouraged. Ther
 
 1. **Clone the repo from GitHub:**
 
-  ```bash
-  git clone https://github.com/footworkjs/footwork.git
-  cd footwork
-  ```
+    ```bash
+    git clone https://github.com/footworkjs/footwork.git
+    cd footwork
+    ```
 
 1. **Install Node.js and NPM (if needed):**
 
-  This is platform specific. Your OS may already include it, however if not please see: [Installing Node](https://docs.npmjs.com/getting-started/installing-node).
+    This is platform specific. Your OS may already include it, however if not please see: [Installing Node](https://docs.npmjs.com/getting-started/installing-node).
 
 1. **Install [gulp](http://gulpjs.com/) globally (if needed):**
 
-  ```bash
-  sudo npm install -g gulp-cli
-  ```
+    ```bash
+    sudo npm install -g gulp-cli
+    ```
 
 1. **Acquire build dependencies:**
 
-  ```bash
-  npm install
-  ```
+    ```bash
+    npm install
+    ```
 
 1. **Run a gulp task to build/test/etc:**
 

@@ -62,6 +62,16 @@ There are several important aspects/properties of outlets that you should be awa
 
     At some point after this router is bound to the DOM, the outlets contained within will be bound and then will ask their router for their state (if one exists). The router will then set their current state (component) to the value you had previously set them to.
 
+* An outlet will display its original content while loading a new component to display.
+
+    You can manipulate/alter this with the [loading option](#loading-string). Absent of that an outlet will revert to its original contents when loading a new component.
+
+    ```html
+    <outlet name="display">
+      <div class="loading">Please wait, content is loading...</div>
+    </outlet>
+    ```
+
 ## Creating An Outlet
 
 An outlet is created with a declarative `<outlet name=""></outlet>` element placed in your HTML. The *name=""* attribute is used by the router to target that specific outlet, this value must be unique.
@@ -164,6 +174,9 @@ router.outlet('main-view', {
   loading: 'loading-throbber'
 });
 ```
+
+!!! Note
+    If you provide a *falsey* value for `loading` (or omit it completely), then the outlet will display its original contents while loading its new component to display. 
 
 #### transition (integer)
 
