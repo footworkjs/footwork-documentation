@@ -64,7 +64,7 @@ There are several important aspects/properties of outlets that you should be awa
 
 * An outlet will display its original content while loading a new component to display.
 
-    You can manipulate/alter this with the [loading option](#loading-string). Absent of that an outlet will revert to its original contents when loading a new component.
+    You can manipulate/alter this with the [loading option](#loading-string). Absent of that (or if a *falsey* value is provided) an outlet will revert to its original contents when loading a new component.
 
     ```html
     <outlet name="display">
