@@ -72,6 +72,9 @@ There are several important aspects/properties of outlets that you should be awa
     </outlet>
     ```
 
+    !!! Note
+        During startup/binding an outlet will *only* display its original contents. The `loading` display option is only inspected when an outlet *change* is made.
+
 ## Creating An Outlet
 
 An outlet is created with a declarative `<outlet name=""></outlet>` element placed in your HTML. The *name=""* attribute is used by the router to target that specific outlet, this value must be unique.

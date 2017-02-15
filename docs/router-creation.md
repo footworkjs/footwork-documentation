@@ -270,22 +270,33 @@ outlet: {
 }
 ```
 
-The options you provide here are the same as you would provide directly to an outlet when manipulating it (see: [outlet options documentation](router-outlets.md#outlet-options)), however there are two differences to take into consideration when supplying outlet options on the router itself:
+The options you provide here are the same as you would provide directly to an outlet when manipulating it (see: [outlet options documentation](router-outlets.md#outlet-options)), however there are a few differences to take into consideration when supplying outlet options on the router itself:
 
 1. You can provide a callback function for the `loading` option.
 
-    This is to facilitate being able to programmatically provide different loading displays from the router itself. The callback you provide is given the name of the outlet being changed (and its context is the router). The callback should return the name of the component to use as the loading display for the outlet.
+    This is to facilitate being able to programmatically provide different loading displays from the router itself. The callback you provide is given the name of the outlet being changed and the name of the component that is loading (its context is the router). The callback should return the name of the component to use as the loading display for the outlet.
     
     An example usage of this callback:
 
     ```javascript
     outlet: {
-      loading: function (outletName) {
+      loading: function (outletName, displayComponent) {
         return 'loading-display';
       }
     }
     ```
 
+1. You can provide a callback function for the `transition` option.
+
+    Triggered just like the `loading` option, the callback here is provided the name of the outlet in question as well as the `displayComponent` that is being transitioned to. You should return the integer value representing the minimum transition time required for the switch:
+
+    ```javascript
+    outlet: {
+      transition: function (outletName, displayComponent) {
+        return 300;
+      }
+    }
+    ```
 
 1. All of these outlet options are overridden by local options provided on an explicit outlet change.
 
