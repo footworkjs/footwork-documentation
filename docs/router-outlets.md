@@ -345,26 +345,26 @@ fw.router.register('AppRouter', function AppRouter () {
 });
 ```
 
-We can see that the loading display here will show the user an informative content telling them to wait for it to finish loading. Once the app is loaded the loading display will quickly disappear however. Using the [fw.router.get](router-usage.md#fwrouterget) utility, we can request a reference to the instantiated `router` via its `namespace`:
+We can see that the loading display here will show the user an informative message telling them to wait for it to finish loading. Once the app is loaded, the `loading` display will quickly disappear however. Using the [fw.router.get](router-usage.md#fwrouterget) utility, we can request a reference to the instantiated `router` via its `namespace`:
 
 ```javascript
 // get reference to AppRouter via its namespace property
 var appRouter = fw.router.get('AppRouter');
 ```
 
-Once we have access to the router instance, we can manipulate the outlet directly. Each outlet is registered via its name as a key on the `router.outlets` property. So in the example above, we would access the outlet viewModel like so:
+Once we have access to the router instance, we can manipulate the outlet directly. Each outlets viewModel is registered via its name as a key on the `router.outlets` property. So in the example above, we would access the outlet viewModel like so:
 
 ```javascript
 var mainView = appRouter.outlets['main-view'];
 ```
 
-Now that we have a reference to the outlet itself, we can manipulate it. So to switch the outlet to its loading display, we simply call `mainView.showLoading()`:
+Now that we have a reference to the outlet itself, we can manipulate it. So to switch the outlet to its loading display, we simply call the method `mainView.showLoading()`:
 
 ```javascript
 mainView.showLoading();
 ```
 
-When this call is made the outlet will switch to whatever the most recent loading display was and hold it until the outlet is manipulated again. There are a few important properties on an outlet viewModel which you might want to be aware of:
+When this call is made the outlet will switch to whatever the most recent `loading` display was and hold it until the outlet is manipulated again. There are a couple of important methods on an outlet viewModel which you might want to be aware of:
 
 ### showLoading
 
