@@ -326,11 +326,9 @@ At its core, an outlet is a fancy component for switching its display content as
 
 ```html
 <router module="AppRouter">
-  <main>
-    <outlet name="main-view">
-      <span>Loading content...please wait.</span>
-    </outlet>
-  </main>
+  <outlet name="main-view">
+    <span>Loading content...please wait.</span>
+  </outlet>
 </router>
 ```
 

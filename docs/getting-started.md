@@ -83,25 +83,32 @@ Once all of your application code has been loaded and you have performed any con
 
 ## Browser Support and Polyfills
 
-Footwork is an ES5-based library and utilizes a couple of the newer ES6 features such as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) and [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). This means that it needs at least IE9 or later, and might require that you load some polyfills (if [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) and [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) are not natively supported by your browser).
+Footwork is an ES5-based library and utilizes a few of the newer ES6/HTML5 features such as:
 
-If you require the polyfills, then the following ones are recommended (they are the ones run with the unit tests, although any ES6 fetch and promise polyfills should work):
+* [ES6 fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+* [ES6 promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+* [HTML5 History](http://diveintohtml5.info/history.html).
+
+This means that it needs at least IE9 or later, and might require that you load some polyfills (any of the aforementioned are not natively supported by a browser you need to support).
+
+If you require polyfills, then the following ones are recommended (they are the ones run with the unit tests, although any ES6 fetch and promise polyfills should work):
 
 * https://github.com/stefanpenner/es6-promise
 * https://github.com/github/fetch
+* https://github.com/devote/HTML5-History-API
 
 Depending on your preferred package manager, they are both available via [bower](http://bower.io) and [npm](https://www.npmjs.com/):
 
 * Install via [bower](http://bower.io)
 
     ```bash
-    bower install es6-promise fetch --save
+    bower install es6-promise fetch html5-history-api --save
     ```
 
 * Install via [npm](https://www.npmjs.com/)
 
     ```bash
-    npm install es6-promise whatwg-fetch --save
+    npm install es6-promise whatwg-fetch html5-history-api --save
     ```
 
     !!! Note
@@ -124,6 +131,7 @@ These polyfills need to be loaded prior to Footwork. Here is an example using no
     <!-- polyfills -->
     <script src="bower_components/es6-promise/es6-promise.auto.js"></script>
     <script src="bower_components/fetch/fetch.js"></script>
+    <script src="bower_components/html5-history-api/history.js"></script>
 
     <!-- Footwork framework -->
     <script src="bower_components/footwork/dist/footwork.js"></script>
@@ -171,6 +179,7 @@ And to load these you would do something like so:
     <!-- polyfills -->
     <script src="bower_components/es6-promise/es6-promise.auto.js"></script>
     <script src="bower_components/fetch/fetch.js"></script>
+    <script src="bower_components/html5-history-api/history.js"></script>
 
     <!-- RequireJS -->
     <script src="bower_components/requirejs/require.js"></script>
@@ -218,13 +227,14 @@ A brief example of this is shown here:
         "text": "/bower_components/text/text",
         "footwork": "/bower_components/footwork/dist/footwork",
         "es6-promise": "/bower_components/es6-promise/es6-promise",
-        "fetch": "/bower_components/fetch/fetch"
+        "fetch": "/bower_components/fetch/fetch",
+        "history": "/bower_components/html5-history-api/history"
       }
     });
 
-    require(['footwork', 'es6-promise', 'fetch'],
+    require(['footwork', 'es6-promise', 'fetch', 'history'],
       function (fw, promise) {
-        // Promise polyfill requires an explicit call (fetch does not)
+        // Promise polyfill requires an explicit call (fetch and history do not)
         promise.polyfill();
 
         // Your code goes here
