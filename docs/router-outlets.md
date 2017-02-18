@@ -110,10 +110,22 @@ Outlets are *attached* to their parent router. The router instance has an `outle
 If you simply want to change the outlet to a new display then all you need to pass along is the outlet name as well as the name of the component (that it was registered as):
 
 ```javascript
-router.outlet('main-view', 'home-page');
+var promise = router.outlet('main-view', 'home-page');
+
+promise.then(function (outletElement) {
+  console.info('outlet change has completed!');
+});
 ```
 
 The above statement will remove the contents of the `main-view` outlet and swap it to display the `home-page` component.
+
+Also notice that the outlet method returns an [ES6 Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). This promise resolves once:
+
+1. The outlet itself has finished loading.
+2. All nested children of the outlet have been resolved and bound.
+3. A [minimum transition](#transition-integer) time has transpired (if specified).
+
+The outlet will not resolve the promise or fire its [onComplete](#oncomplete-callback) callback until all of those conditions have been satisfied.
 
 !!! Note "Animations"
     Keep in mind that all of the animation capabilities are usable...so for instance if the `home-page` component is defined with a *fadeIn* animation, then it will fade into place.
@@ -242,6 +254,12 @@ router.outlet('main-view', {
 });
 ```
 
+The `onComplete` callback will trigger once all of the following have been satisfied:
+
+1. The outlet itself has finished loading.
+2. All nested children of the outlet have been resolved and bound.
+3. A [minimum transition](#transition-integer) time has transpired (if specified).
+
 !!! Note "onComplete router outlet config"
     If you also provide an `onComplete` callback as a *global outlet option* on a router config, then it is called *in addition to* any `onComplete` callback you may provide on the outlet itself:
 
@@ -299,3 +317,67 @@ function AppRouter () {
 ```
 
 You can change an outlet display at any time but this tends to be a very common use.
+
+## Debugging Outlets
+
+Sometimes you may need to manipulate an outlet more directly. An example of this is if you need to adjust the styling of the `loading` display. In that scenario you will want to *hold open/visible* the loading display component while you debug and manipulate its styles.
+
+At its core, an outlet is a fancy component for switching its display content as specified. It has its own viewModel upon which is stores the component/display info. Footwork provides a way of accessing an outlets viewModel directly from its parent router, and thus control the display explicitly. For example purposes, lets assume we have the following view defined which declares a router with a named outlet called `main-view`:
+
+```html
+<router module="AppRouter">
+  <main>
+    <outlet name="main-view">
+      <span>Loading content...please wait.</span>
+    </outlet>
+  </main>
+</router>
+```
+
+... and the corresponding `AppRouter` we will use with the view above:
+
+```javascript
+fw.router.register('AppRouter', function AppRouter () {
+  var self = fw.router.boot(this, {
+    namespace: 'AppRouter', // we will use this to get its reference later
+    routes: [ /* ... */ ]
+  });
+});
+```
+
+We can see that the loading display here will show the user an informative content telling them to wait for it to finish loading. Once the app is loaded the loading display will quickly disappear however. Using the [fw.router.get](router-usage.md#fwrouterget) utility, we can request a reference to the instantiated `router` via its `namespace`:
+
+```javascript
+// get reference to AppRouter via its namespace property
+var appRouter = fw.router.get('AppRouter');
+```
+
+Once we have access to the router instance, we can manipulate the outlet directly. Each outlet is registered via its name as a key on the `router.outlets` property. So in the example above, we would access the outlet viewModel like so:
+
+```javascript
+var mainView = appRouter.outlets['main-view'];
+```
+
+Now that we have a reference to the outlet itself, we can manipulate it. So to switch the outlet to its loading display, we simply call `mainView.showLoading()`:
+
+```javascript
+mainView.showLoading();
+```
+
+When this call is made the outlet will switch to whatever the most recent loading display was and hold it until the outlet is manipulated again. There are a few important properties on an outlet viewModel which you might want to be aware of:
+
+### showLoading
+
+This method will cause the outlet to show its previous/current loading display.
+
+```javascript
+outletViewModel.showLoading();
+```
+
+### showDisplay
+
+This method will cause the outlet to show its current display.
+
+```javascript
+outletViewModel.showDisplay();
+```

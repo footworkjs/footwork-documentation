@@ -13,6 +13,9 @@ A typical use case for a `dataModel` is when you want to store/retrieve/delete d
 
 An example of this might be creating an HTML form which can retrieve and create tickets for a help system. You would bind a `dataModel` to the form and later on might retrieve and display that form back to the user to edit/modify the ticket. A `dataModel` would facilitate the mapping of and retrieval/storage of that data on a [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoint.
 
+!!! Note
+    This page outlines the configuration and creation of a dataModel instance itself, for info on CRUD operations (including create requests) see [issuing requests](dataModel-requests.md).
+
 ## Creation
 
 A `dataModel` is a view model object that has been bootstrapped with `fw.dataModel.boot()` by passing it the instance along with an optional configuration:
@@ -218,7 +221,7 @@ The `idAttribute` is used primarily for two different purposes:
 
 1. The value of your mapped `idAttribute` is used in the `isNew` evaluator. This is a flag indicating whether or not your `dataModel` has been persisted to the server yet. It is based off of whether or not the mapped `idAttribute` is *falsey* or not. A *falsey* value indicates the `dataModel` is new (ie: has no id yet, and must be created).
 
-For more information see: [issuing requests](#issuing-requests).
+For more information see: [issuing requests](dataModel-requests.md).
 
 ### url (string | object)
 
