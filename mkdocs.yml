@@ -17,6 +17,7 @@ extra_javascript:
   - bower_components/footwork/dist/footwork.js
   - scripts/demo/animation-demo.js
   - scripts/demo/sequence-demo.js
+  - scripts/version-display.js
   - scripts/fw-start.js
 extra:
   logo: 'images/logo.svg'

@@ -16,6 +16,13 @@ It has features such as:
 
 Ready? Jump into the [Getting Started](getting-started.md) section!
 
+## Build information
+
+This verision of Footwork (<version-display params="lib: 'footwork'"></version-display>) was created with:
+
+* [KnockoutJS](http://knockoutjs.com/) <version-display params="lib: 'knockout'"></version-display>
+* [Lodash](https://lodash.com/) <version-display params="lib: 'lodash'"></version-display> (custom build)
+
 ## Issues
 
 Please keep the [issue tracker](http://github.com/footworkjs/footwork/issues) limited to **bug reports**, **feature requests** and **pull requests**. If you are reporting a bug make sure to include information about which browser and operating system you are using as well as the necessary steps to reproduce the issue.
