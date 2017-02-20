@@ -89,15 +89,15 @@ Footwork is an ES5-based library and utilizes a few of the newer ES6/HTML5 featu
 * [ES6 promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 * [HTML5 History](http://diveintohtml5.info/history.html).
 
-This means that it needs at least IE9 or later, and might require that you load some polyfills (any of the aforementioned are not natively supported by a browser you need to support).
+This means that it needs at least IE9 or later, and might require that you load some polyfills (if any of the aforementioned are not natively supported by a browser you need to support).
 
-If you require polyfills, then the following ones are recommended (they are the ones run with the unit tests, although any ES6 fetch and promise polyfills should work):
+If you require polyfills, then the following ones are recommended (they are the ones run with the tests):
 
 * https://github.com/stefanpenner/es6-promise
 * https://github.com/github/fetch
 * https://github.com/devote/HTML5-History-API
 
-Depending on your preferred package manager, they are both available via [bower](http://bower.io) and [npm](https://www.npmjs.com/):
+Depending on your preferred package manager, they are available via [bower](http://bower.io) and [npm](https://www.npmjs.com/):
 
 * Install via [bower](http://bower.io)
 
