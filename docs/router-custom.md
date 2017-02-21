@@ -13,11 +13,19 @@ Footwork provides routing logic which flows as follows:
 
 1. The new route is looked up via [router.getRouteForState](#getrouteforstate).
 
-    This method is expected to take the currentState and use that to lookup and return the new route details. See [route resolution and execution](#route-resolution-and-execution).
+    This method is expected to take the currentState and use that to lookup and *return* the new route details. See [route resolution and execution](#route-resolution-and-execution).
 
-1. The `currentRoute` is executed.
+    This is what you will want to override if implementing custom routing logic.
 
-    A deep object comparison is done on the old route and newly written currentRoute, *if* they are different then the route is executed.
+1. The `currentRoute` returned from [router.getRouteForState](#getrouteforstate) is executed.
+
+    A deep object comparison is done on the old route and new currentRoute, *if* they are different then the route is executed.
+
+    *Execution* of a route means:
+
+    * Its `controller` callback is executed
+    * If the route has a `title` it is used to set the browser title
+    * If the route has a `url` property it is used to set the browser url
 
 ## Route Resolution and Execution
 

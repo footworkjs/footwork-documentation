@@ -30,7 +30,6 @@ extra:
   social:
     - type: github
       link: https://github.com/footworkjs
-  version: 2.0.0
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.codehilite(guess_lang=false)
