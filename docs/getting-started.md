@@ -1,22 +1,36 @@
+!!! Note
+    This documentation assumes a reasonable understanding of javascript, html, and css. If you are brand new to frontend development you might want to learn the language and basics of html to begin with...it's worth it, and will help *immensely* regardless of what framework you end up using.
+
+By far, the fastest route to get Footwork running is including it via the CDN with a simple script tag:
+
+```html
+<script src="https://unpkg.com/footwork/dist/footwork.js"></script>
+
+<!-- optional, for animations -->
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/footwork/dist/footwork.css">
+```
+
+Thats all you need, toss that script tag into an HTML file and get started right away. For a super quick demo/example, take a look at the [Hello World jsFiddle](https://jsfiddle.net/footwork/2yutum92/).
+
 ## Installing
 
-To begin, you must first install/download Footwork:
+For a more defined project you may want to install/configure it as a dependency. Footwork is served up via the two most common frontend packagers, bower and npm:
 
-* You can install via bower:
+* To install via bower:
 
-  ```bash
-  bower install footwork --save
-  ```
+    ```bash
+    bower install footwork --save
+    ```
 
-* or you can install via npm:
+* To install via npm:
 
-  ```bash
-  npm install footwork --save
-  ```
+    ```bash
+    npm install footwork --save
+    ```
 
-* or you can download it directly:
+* To download it directly:
 
-  https://github.com/footworkjs/footwork/blob/2.0.0/dist
+    https://unpkg.com/footwork/dist/footwork.js
 
 ## Linking
 
