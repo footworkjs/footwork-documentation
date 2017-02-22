@@ -5,9 +5,6 @@ By far, the fastest route to get Footwork running is including it via the CDN wi
 
 ```html
 <script src="https://unpkg.com/footwork/dist/footwork.js"></script>
-
-<!-- optional, for animations -->
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/footwork/dist/footwork.css">
 ```
 
 Thats all you need, toss that script tag into an HTML file and get started right away. For a super quick demo/example, take a look at the [Hello World jsFiddle](https://jsfiddle.net/footwork/2yutum92/).
@@ -32,36 +29,60 @@ For a more defined project you may want to install/configure it as a dependency.
 
     https://unpkg.com/footwork/dist/footwork.js
 
-## Linking
+    https://unpkg.com/footwork/dist/footwork.css (optional, for animations)
 
-After that, you need to include it in your webapp somehow. Footwork is provided with a [UMD wrapper](https://github.com/umdjs/umd#umd-universal-module-definition), which means that it can be loaded using most script loaders.
+## The Basics
 
-Below is an example using normal script tags (adjust accordingly for your preferred script loader, see also: [Dynamic Loading of Assets](#dynamic-loading-of-assets)):
+Footwork is largely declaratively-based, logic is modularized within view models bound against those declarations. Using two-way bindings and simple constructor functions you can build rich user interfaces.
+
+### Views and View Models
+
+An example view:
 
 ```html
-<html>
-  <head>
-    <title>My Awesome Application</title>
-
-    <!-- (optional) Need this for animation support -->
-    <link rel="stylesheet" href="bower_components/footwork/dist/footwork.css">
-  </head>
-
-  <body>
-    <!-- ... application markup goes here ... -->
-
-    <!-- Footwork framework -->
-    <script src="bower_components/footwork/dist/footwork.js"></script>
-
-    <!-- Your code -->
-    <script src="scripts/my-script.js"></script>
-  </body>
-</html>
+<viewModel module="Person" params="name: 'Jill'">
+  My name is <span data-bind="text: name"></span>
+  
+  <button data-bind="click: sayHello">Say Hello</button>
+  <span data-bind="text: response"></span>
+</viewModel>
 ```
 
-## Starting The Application
+In the example above we declare a single viewModel `Person` with some markup inside of it. When the application is started Footwork will iterate over the view, find the viewModel declaration, match that up with the registered viewModel, and then instantiate and bind it.
 
-Once all of your application code has been loaded and you have performed any configuration and registration of components/viewModels/etc, as well as any other startup logic - you will want to start your application. There are two primary ways to accomplish that:
+An example view model which we might bind against the view above:
+
+```javascript
+fw.viewModel.register('Person', function (params) {
+  var self = fw.viewModel.boot(this, {
+    namespace: 'Person'
+  });
+  
+  self.name = params.name;
+  self.response = fw.observable();
+  self.sayHello = function () {
+  	self.$namespace.publish('hello', self);
+  };
+  
+  self.$namespace.subscribe('hello', function (from) {
+  	if (from.name !== self.name) {
+	  	self.response('Hello ' + from.name);
+		} else {
+      self.response(undefined);
+    }
+  });
+});
+
+// Start the application
+fw.start();
+```
+
+!!! Tip
+    There are several different types of view models and ways to create them. Some have additional features or advantages depending on your needed use, see [Creating View Models](architecture.md#creating-view-models)
+
+### Starting The Application
+
+There are two ways of kickstarting your application:
 
 * `fw.start`
 
@@ -93,7 +114,8 @@ Once all of your application code has been loaded and you have performed any con
     fw.applyBindings(new MyViewModel(), document.getElementById('my-app'));
     ```
 
-    Once `fw.applyBindings` has been called all descendant declarations to the root node will be processed. This means any nested viewModels/components/etc will be instantiated and bound per their registrations/configurations/etc.
+    !!! Note
+        Once `fw.applyBindings` has been called all descendant declarations to the root node will be processed as well. This means any nested viewModels/components/etc will be instantiated and bound per their registrations/configurations/etc.
 
 ## Browser Support and Polyfills
 

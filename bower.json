@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "jquery": "*",
-    "footwork": "#7b6eea734bf9259f9eba7dcfd397ed4e21a6ba8d"
+    "footwork": "2.0.1"
   }
 }
